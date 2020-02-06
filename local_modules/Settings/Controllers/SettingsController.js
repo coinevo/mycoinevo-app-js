@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -39,8 +39,8 @@ let k_defaults_record =
 {
 	specificAPIAddressURLAuthority: "",
 	appTimeoutAfterS: 3 * 60, // 3 mins
-	invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount: false,
-	displayCcySymbol: Currencies.ccySymbolsByCcy.XMR, // default
+	invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount: false,
+	displayCcySymbol: Currencies.ccySymbolsByCcy.EVO, // default
 	authentication_requireWhenSending: true,
 	authentication_requireWhenDisclosingWalletSecrets: true,
 	autoDownloadUpdatesEnabled: true 
@@ -107,7 +107,7 @@ class SettingsController extends EventEmitter
 			//
 			self.specificAPIAddressURLAuthority = record_doc.specificAPIAddressURLAuthority
 			self.appTimeoutAfterS = record_doc.appTimeoutAfterS
-			self.invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount = record_doc.invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount
+			self.invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount = record_doc.invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount
 			self.displayCcySymbol = record_doc.displayCcySymbol
 			if (typeof record_doc.authentication_requireWhenSending === 'undefined' || record_doc.authentication_requireWhenSending == null) {
 				self.authentication_requireWhenSending = k_defaults_record.authentication_requireWhenSending
@@ -217,7 +217,7 @@ class SettingsController extends EventEmitter
 						} else if (valueKey == "autoDownloadUpdatesEnabled") {
 							didUpdate_autoDownloadUpdatesEnabled = true
 						}
-						// NOTE: not checking invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount b/c invisible_ and therefore always set programmatically
+						// NOTE: not checking invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount b/c invisible_ and therefore always set programmatically
 					}
 					{ // set
 						self[valueKey] = value
@@ -300,7 +300,7 @@ class SettingsController extends EventEmitter
 					_id: self._id, // important to set for updates
 					specificAPIAddressURLAuthority: self.specificAPIAddressURLAuthority,
 					appTimeoutAfterS: self.appTimeoutAfterS,
-					invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount: self.invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount,
+					invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount: self.invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount,
 					displayCcySymbol: self.displayCcySymbol,
 					authentication_requireWhenSending: self.authentication_requireWhenSending,
 					authentication_requireWhenDisclosingWalletSecrets: self.authentication_requireWhenDisclosingWalletSecrets,

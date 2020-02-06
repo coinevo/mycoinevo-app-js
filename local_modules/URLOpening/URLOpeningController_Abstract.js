@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -30,8 +30,8 @@
 //
 const EventEmitter = require('events')
 //
-const PROTOCOL_PREFIX = "monero" // this is also specified for MacOS in packager.js under scheme
-// maybe support "mymonero" too
+const PROTOCOL_PREFIX = "coinevo" // this is also specified for MacOS in packager.js under scheme
+// maybe support "coinevo.tech" too
 //
 class URLOpeningController_Abstract extends EventEmitter
 {

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -90,8 +90,8 @@ class ContactDetailsView extends View
 			self.tableSection_containerLayer = containerLayer
 			{
 				self._setup_field_address()
-				self._setup_field__cached_OAResolved_XMR_address()
-				self._setup_field__derived__integrated_XMR_address()
+				self._setup_field__cached_OAResolved_EVO_address()
+				self._setup_field__derived__integrated_EVO_address()
 				containerLayer.appendChild(commonComponents_tables.New_separatorLayer(self.context))
 				self._setup_field_paymentID()
 			}
@@ -142,11 +142,11 @@ class ContactDetailsView extends View
 		self.address__valueField_component = div
 		self.tableSection_containerLayer.appendChild(div)
 	}
-	_setup_field__cached_OAResolved_XMR_address()
+	_setup_field__cached_OAResolved_EVO_address()
 	{
 		const self = this
-		const fieldLabelTitle = "XMR Address (cached)"
-		const value = self.contact.cached_OAResolved_XMR_address
+		const fieldLabelTitle = "EVO Address (cached)"
+		const value = self.contact.cached_OAResolved_EVO_address
 		const valueToDisplayIfValueNil = "N/A"
 		const div = commonComponents_tables.New_copyable_longStringValueField_component_fieldContainerLayer(
 			self.context,
@@ -156,17 +156,17 @@ class ContactDetailsView extends View
 			valueToDisplayIfValueNil
 		)
 		div.style.paddingRight = "16px" // manually here cause we removed right padding on container to get separator flush with right side 
-		self.cached_OAResolved_XMR_address__valueField_component = div
+		self.cached_OAResolved_EVO_address__valueField_component = div
 		if (typeof value === 'undefined' || !value) {
 			div.style.display = "none"
 		}
 		self.tableSection_containerLayer.appendChild(div)
 	}
-	_setup_field__derived__integrated_XMR_address()
+	_setup_field__derived__integrated_EVO_address()
 	{
 		const self = this
 		const fieldLabelTitle = "Integrated Address (derived)"
-		const value = self.contact.new_integratedXMRAddress_orNilIfNotApplicable()
+		const value = self.contact.new_integratedEVOAddress_orNilIfNotApplicable()
 		const valueToDisplayIfValueNil = "N/A"
 		const div = commonComponents_tables.New_copyable_longStringValueField_component_fieldContainerLayer(
 			self.context,
@@ -176,7 +176,7 @@ class ContactDetailsView extends View
 			valueToDisplayIfValueNil
 		)
 		div.style.paddingRight = "16px" // manually here cause we removed right padding on container to get separator flush with right side 
-		self.derived__integrated_XMR_address__valueField_component = div
+		self.derived__integrated_EVO_address__valueField_component = div
 		if (typeof value === 'undefined' || !value) {
 			div.style.display = "none"
 		}
@@ -482,8 +482,8 @@ class ContactDetailsView extends View
 			layer.Component_SetValue(value)
 		}
 		{
-			const value = self.contact.cached_OAResolved_XMR_address
-			const layer = self.cached_OAResolved_XMR_address__valueField_component
+			const value = self.contact.cached_OAResolved_EVO_address
+			const layer = self.cached_OAResolved_EVO_address__valueField_component
 			if (!value || typeof value === 'undefined') {
 				layer.style.display = "none"
 			} else {
@@ -492,8 +492,8 @@ class ContactDetailsView extends View
 			}
 		}
 		{
-			const value = self.contact.new_integratedXMRAddress_orNilIfNotApplicable()
-			const layer = self.derived__integrated_XMR_address__valueField_component
+			const value = self.contact.new_integratedEVOAddress_orNilIfNotApplicable()
+			const layer = self.derived__integrated_EVO_address__valueField_component
 			if (!value || typeof value === 'undefined') {
 				layer.style.display = "none"
 			} else {

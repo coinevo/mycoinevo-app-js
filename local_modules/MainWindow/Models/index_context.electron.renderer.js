@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -28,10 +28,10 @@
 //
 "use strict"
 //
-const instantiation_description__hostedMoneroAPIClient =
+const instantiation_description__hostedCoinevoAPIClient =
 { // this one is broken out so we can configure options with `app` object once we have it
-	module_path: __dirname + "/../../HostedMoneroAPIClient/HostedMoneroAPIClient.Full",
-	instance_key: "hostedMoneroAPIClient",
+	module_path: __dirname + "/../../HostedCoinevoAPIClient/HostedCoinevoAPIClient.Full",
+	instance_key: "hostedCoinevoAPIClient",
 	options: {
 		request_conformant_module: require('xhr')
 	}
@@ -84,11 +84,11 @@ var context_object_instantiation_descriptions =
 		options: {}
 	},
 	{
-		module_path: __dirname + "/../../HostedMoneroAPIClient/BackgroundResponseParser.electron.renderer",
+		module_path: __dirname + "/../../HostedCoinevoAPIClient/BackgroundResponseParser.electron.renderer",
 		instance_key: "backgroundAPIResponseParser",
 		options: {}
 	},
-	instantiation_description__hostedMoneroAPIClient,
+	instantiation_description__hostedCoinevoAPIClient,
 	{ // depends upon txtRecordResolver ... maybe inject
 		module_path: __dirname + "/../../OpenAlias/OpenAliasResolver",
 		instance_key: "openAliasResolver",
@@ -161,11 +161,11 @@ function NewHydratedContext(
 	menuController,
 	urlOpeningController,
 	appUpdatesController,
-	monero_utils
+	coinevo_utils
 ) {
 	var initialContext =
 	{
-		nettype: require('../../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/nettype').network_type.MAINNET, // critical setting
+		nettype: require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/nettype').network_type.MAINNET, // critical setting
 		app: app,
 		menuController: menuController,
 		appUpdatesController: appUpdatesController,
@@ -177,13 +177,13 @@ function NewHydratedContext(
 		TabBarView_thickness: 79,
 		rootViewFooterHeight: 0, // because we're not implementing any footer in Desktop mode
 		TabBarView_isHorizontalBar: false,
-		appDownloadLink_domainAndPath: "mymonero.com",
-		HostedMoneroAPIClient_DEBUGONLY_mockSendTransactionSuccess: false && process.env.NODE_ENV === 'development',
-		monero_utils: monero_utils
+		appDownloadLink_domainAndPath: "coinevo.tech.com",
+		HostedCoinevoAPIClient_DEBUGONLY_mockSendTransactionSuccess: false && process.env.NODE_ENV === 'development',
+		coinevo_utils: coinevo_utils
 	}
 	// required options (which can only be obtained with `app`, etc.)
-	instantiation_description__hostedMoneroAPIClient.options.appUserAgent_product = app.getName()
-	instantiation_description__hostedMoneroAPIClient.options.appUserAgent_version = app.getVersion()	
+	instantiation_description__hostedCoinevoAPIClient.options.appUserAgent_product = app.getName()
+	instantiation_description__hostedCoinevoAPIClient.options.appUserAgent_version = app.getVersion()	
 	//
 	return require("../../runtime_context/runtime_context").NewHydratedContext(
 		context_object_instantiation_descriptions, 

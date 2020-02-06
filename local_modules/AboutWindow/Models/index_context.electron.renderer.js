@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -53,7 +53,7 @@ function NewHydratedContext(
 		menuController: menuController,
 		isDebug: process.env.NODE_ENV === 'development',
 		crossPlatform_appBundledIndexRelativeAssetsRootPath: "../../", // b/c index_context is in MainWindow/Views; must end up /
-		appDownloadLink_domainAndPath: "mymonero.com"
+		appDownloadLink_domainAndPath: "coinevo.tech.com"
 	}
 
 	return require("../../runtime_context/runtime_context").NewHydratedContext(context_object_instantiation_descriptions, initialContext)

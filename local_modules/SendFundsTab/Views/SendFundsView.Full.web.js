@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -30,7 +30,7 @@
 //
 const SendFundsView_Base = require('./SendFundsView_Base.web')
 const commonComponents_contactPicker = require('../../MMAppUICommonComponents/contactPicker.web')
-const monero_requestURI_utils = require('../../MoneroUtils/monero_requestURI_utils')
+const coinevo_requestURI_utils = require('../../CoinevoUtils/coinevo_requestURI_utils')
 const AddContactFromSendTabView = require('../../Contacts/Views/AddContactFromSendTabView.web')
 const StackAndModalNavigationView = require('../../StackNavigation/Views/StackAndModalNavigationView.web')
 //
@@ -49,7 +49,7 @@ class SendFundsView extends SendFundsView_Base
 		{ // urlOpeningController
 			const controller = self.context.urlOpeningCoordinator
 			controller.on(
-				controller.EventName_TimeToHandleReceivedMoneroRequestURL(),
+				controller.EventName_TimeToHandleReceivedCoinevoRequestURL(),
 				function(url)
 				{
 					self.navigationController.DismissModalViewsToView( // dismissing these b/c of checks in __shared_isAllowedToPerformDropOrURLOpeningOps
@@ -114,7 +114,7 @@ class SendFundsView extends SendFundsView_Base
 		//
 		var requestPayload;
 		try {
-			requestPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
+			requestPayload = coinevo_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.coinevo_utils)
 		} catch (errStr) {
 			if (errStr) {
 				self.validationMessageLayer.SetValidationError("Unable to decode that URL: " + errStr)

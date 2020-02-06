@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -28,9 +28,9 @@
 
 "use strict"
 //
-const HostedMoneroAPIClient_Base = require('./HostedMoneroAPIClient_Base')
+const HostedCoinevoAPIClient_Base = require('./HostedCoinevoAPIClient_Base')
 //
-class HostedMoneroAPIClient extends HostedMoneroAPIClient_Base
+class HostedCoinevoAPIClient extends HostedCoinevoAPIClient_Base
 {
 	//
 	// Lifecycle - Init
@@ -39,4 +39,4 @@ class HostedMoneroAPIClient extends HostedMoneroAPIClient_Base
 		super(options, context)
 	}
 }
-module.exports = HostedMoneroAPIClient
+module.exports = HostedCoinevoAPIClient

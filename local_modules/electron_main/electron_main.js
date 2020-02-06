@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -56,7 +56,7 @@ const {/*crashReporter, */app} = require('electron')
 // 	}
 // }
 { // `app` configuration
-	const appId = "com.mymonero.mymonero-desktop" // aka bundle id; NOTE: cannot currently access package.json in production pkging (cause of asar?… needs a little work)
+	const appId = "com.coinevo.tech.coinevo.tech-desktop" // aka bundle id; NOTE: cannot currently access package.json in production pkging (cause of asar?… needs a little work)
 	app.setAppUserModelId(appId) // for Windows, primarily; before any windows set up
 }
 const { dialog } = require("electron")

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -304,7 +304,7 @@ class WalletsListController extends ListBaseController
 						if (!wallet.mnemonicString || typeof wallet.mnemonicString === 'undefined') {
 							continue // TODO: solve limitation of this code; how to check if wallet with same address (but no mnemonic) was already added?
 						}
-						if (self.context.monero_utils.are_equal_mnemonics(mnemonicString, wallet.mnemonicString)) {
+						if (self.context.coinevo_utils.are_equal_mnemonics(mnemonicString, wallet.mnemonicString)) {
 							// simply return existing wallet
 							fn(null, wallet, true) // wasWalletAlreadyInserted: true
 							return

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -88,7 +88,7 @@ class URLOpeningController extends URLOpeningController_Abstract
 			const {dialog} = require('electron')
 			dialog.showMessageBox({
 				buttons: [ 'OK' ],
-				message: "Sorry, that does not appear to be a valid Monero URL."
+				message: "Sorry, that does not appear to be a valid Coinevo URL."
 			})
 		}
 		if (self.context.app.isReady()) {

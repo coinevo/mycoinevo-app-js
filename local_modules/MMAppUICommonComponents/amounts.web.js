@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -35,7 +35,7 @@ const commonComponents_tables = require('./tables.web')
 const commonComponents_forms = require('./forms.web')
 const commonComponents_ccySelect = require('./ccySelect.web')
 //
-const monero_config = require('../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_config')
+const coinevo_config = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_config')
 //
 const NamespaceName = "Forms.Amounts"
 const haveCSSRulesBeenInjected_documentKey = "__haveCSSRulesBeenInjected_"+NamespaceName
@@ -93,8 +93,8 @@ function New_AmountInputFieldPKG(
 	// not going to set `pattern` attribute because it can't support periods
 	// not going to set type="number" because it inserts commas, etc
 	valueLayer.style.textAlign = "right"
-	valueLayer.float = "left" // because we want it to be on the same line as the "XMR" label
-	valueLayer.style.display = "inline-block" // so we can have the XMR label on the right
+	valueLayer.float = "left" // because we want it to be on the same line as the "EVO" label
+	valueLayer.style.display = "inline-block" // so we can have the EVO label on the right
 	valueLayer.style.width = amountInput_baseW+"px"
 	let paddingRight = valueLayer.Component_default_padding_h() + selectLayer_w
 	valueLayer.style.paddingRight = paddingRight+"px" // make room for the currency select
@@ -118,7 +118,7 @@ function New_AmountInputFieldPKG(
 			}
 		}
 		{ // disallow input which is toooo long. some values are out of spec
-			let longestKnown_coinUnitPlaces = monero_config.coinUnitPlaces
+			let longestKnown_coinUnitPlaces = coinevo_config.coinUnitPlaces
 			let maxText_length = longestKnown_coinUnitPlaces + 2 + 1 
 			// ^-- I figure 14 numerals is a pretty good upper bound guess for inputs no matter what the currency… I might be wrong…
 			if (mutable_candidate_valueLayer_value.length > maxText_length) {

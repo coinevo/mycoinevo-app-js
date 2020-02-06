@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -122,7 +122,7 @@ class CreateWallet_Instructions_View extends BaseView_AWalletWizardScreen
 		const list = []
 		list.push([
 			"Creating a wallet",
-			"Each Monero wallet gets a unique word-sequence called a mnemonic."
+			"Each Coinevo wallet gets a unique word-sequence called a mnemonic."
 		])
 		list.push([
 			"Write down your mnemonic", 
@@ -139,7 +139,7 @@ class CreateWallet_Instructions_View extends BaseView_AWalletWizardScreen
 		if (self.context.isLiteApp == true) {
 			list.push([
 				"Web browsers are insecure",
-				"The convenience of MyMonero for web comes at a security cost. <a href='https://mymonero.com' target='_blank' style='color: #11bbec; cursor: pointer; -webkit-user-select: none; text-decoration: none;'>Download the desktop or mobile app</a>."
+				"The convenience of MyCoinevo for web comes at a security cost. <a href='https://coinevo.tech.com' target='_blank' style='color: #11bbec; cursor: pointer; -webkit-user-select: none; text-decoration: none;'>Download the desktop or mobile app</a>."
 			])
 		}
 		return list

@@ -1,6 +1,6 @@
 /*! VelocityJS.org (1.5.0). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
 
-// NOTE: MODIFIED BY MyMonero IN 2017 to include scroll offset fix
+// NOTE: MODIFIED BY MyCoinevo IN 2017 to include scroll offset fix
 // https://github.com/julianshapiro/velocity/issues/770
 // https://github.com/julianshapiro/velocity/pull/564/commits/1e7fa83836e96d6e28587f5b7829c07052605d8f
 
@@ -3183,7 +3183,7 @@
 
 
 							//
-							// BEGIN MyMonero MODIFICATION
+							// BEGIN MyCoinevo MODIFICATION
 
 
 								 // NOTE: Commented this
@@ -3198,7 +3198,7 @@
 							   child element's position *and* the scroll container's current scroll position. */
 							scrollPositionEnd = (scrollPositionCurrent + $(element).offset()[scrollDirection.toLowerCase()] - $(opts.container).offset()[scrollDirection.toLowerCase()]) + scrollOffset; /* GET */
 
-							// END MyMonero MODIFICATION
+							// END MyCoinevo MODIFICATION
 							//
 
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -28,7 +28,7 @@
 //
 "use strict"
 //
-const mnemonic_languages = require('../../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/mnemonic_languages')
+const mnemonic_languages = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/mnemonic_languages')
 //
 const WizardTask_Modes =
 {

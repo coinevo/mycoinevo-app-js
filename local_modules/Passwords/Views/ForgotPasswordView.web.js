@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -143,7 +143,7 @@ class ForgotPasswordView extends View
 			true,
 			function(layer, e)
 			{
-				var msg = 'Are you sure you want to clear your locally stored data?\n\nAny wallets will remain permanently on the Monero blockchain. At present, local-only data like contacts would not be recoverable.'
+				var msg = 'Are you sure you want to clear your locally stored data?\n\nAny wallets will remain permanently on the Coinevo blockchain. At present, local-only data like contacts would not be recoverable.'
 				self.context.windowDialogs.PresentQuestionAlertDialogWith(
 					'Delete everything?', 
 					msg,

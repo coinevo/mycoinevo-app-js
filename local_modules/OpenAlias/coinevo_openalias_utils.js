@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 // 
 // All rights reserved.
 // 
@@ -28,41 +28,41 @@
 //
 "use strict"
 //
-const monero_config = require('../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_config')
+const coinevo_config = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_config')
 // ^-- TODO: remove this
 //
 const openalias_utils = require('./openalias_utils')
 //
-const currency_openAliasPrefix = monero_config.openAliasPrefix
+const currency_openAliasPrefix = coinevo_config.openAliasPrefix
 //
-function DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress(address)
+function DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress(address)
 {
 	if (address.indexOf('.') !== -1) { 
-		// assumed to be an OA address asXMR addresses do not have periods and OA addrs must
+		// assumed to be an OA address asEVO addresses do not have periods and OA addrs must
 		return true
 	}
 	return false
 }
-exports.DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress = DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress
+exports.DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress = DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress
 //
-function ResolvedMoneroAddressInfoFromOpenAliasAddress( 
+function ResolvedCoinevoAddressInfoFromOpenAliasAddress( 
 	openAliasAddress,
 	txtRecordResolver, // see "./TXTResolver*.js"
 	nettype,
-	monero_utils,
+	coinevo_utils,
 	fn
 	// fn: (
 	// 	err,
-	// 	moneroReady_address,
+	// 	coinevoReady_address,
 	//	payment_id, // may be undefined
 	//	tx_description, // may be undefined
 	// 	openAlias_domain,
 	// 	oaRecords_0_name,
 	// 	oaRecords_0_description,
 	// 	dnssec_used_and_secured
-	// ) -> HostedMoneroAPIClient_RequestHandle
+	// ) -> HostedCoinevoAPIClient_RequestHandle
 ) {
-	if (DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress(openAliasAddress) === false) {
+	if (DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress(openAliasAddress) === false) {
 		throw "Asked to resolve non-OpenAlias address." // throw as code fault
 	}
 	var openAlias_domain = openAliasAddress.replace(/@/g, ".");
@@ -97,14 +97,14 @@ function ResolvedMoneroAddressInfoFromOpenAliasAddress(
 			// console.log("OpenAlias record: ", sampled_oaRecord)
 			var oaRecord_address = sampled_oaRecord.address
 			try { // verify address is decodable for currency
-				monero_utils.decode_address(oaRecord_address, nettype)
+				coinevo_utils.decode_address(oaRecord_address, nettype)
 			} catch (e) {
-				const errStr = "Address received by parsing OpenAlias address " + oaRecord_address + " was not a valid Monero address: " + e 
+				const errStr = "Address received by parsing OpenAlias address " + oaRecord_address + " was not a valid Coinevo address: " + e 
 				const error = new Error(errStr) // apparently if this is named err, JS will complain. no-semicolon parsing issue?
 				fn(error)
 				return
 			}
-			const moneroReady_address = oaRecord_address // now considered valid
+			const coinevoReady_address = oaRecord_address // now considered valid
 			const payment_id = sampled_oaRecord.tx_payment_id
 			const tx_description = sampled_oaRecord.tx_description
 			//
@@ -115,7 +115,7 @@ function ResolvedMoneroAddressInfoFromOpenAliasAddress(
 			fn(
 				null,
 				//
-				moneroReady_address,
+				coinevoReady_address,
 				payment_id,
 				tx_description,
 				//
@@ -128,4 +128,4 @@ function ResolvedMoneroAddressInfoFromOpenAliasAddress(
 	)
 	return resolverHandle
 }
-exports.ResolvedMoneroAddressInfoFromOpenAliasAddress = ResolvedMoneroAddressInfoFromOpenAliasAddress
+exports.ResolvedCoinevoAddressInfoFromOpenAliasAddress = ResolvedCoinevoAddressInfoFromOpenAliasAddress

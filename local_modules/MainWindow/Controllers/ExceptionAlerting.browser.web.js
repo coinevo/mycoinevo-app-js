@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -150,7 +150,7 @@ class ExceptionAlerting
 			return // most likely an error from webflow - can skip erroring these ; TODO: remove this when removing webflow
 		}
 		if (typeof message !== 'undefined' && message && message !== "") {
-			self.doToastMessage("Unhandled error. Please inform MyMonero Support of this message: " + message, message);
+			self.doToastMessage("Unhandled error. Please inform MyCoinevo Support of this message: " + message, message);
 		} else {
 			self.doToastMessage("Unrecognized error occured. Please contact Support with steps and browser informations.", undefined)
 		}

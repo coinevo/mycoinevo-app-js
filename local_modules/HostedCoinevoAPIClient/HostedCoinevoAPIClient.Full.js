@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -25,13 +25,34 @@
 // INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
 // STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF
 // THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+"use strict"
 //
-"use strict";
+const HostedCoinevoAPIClient_Base = require('./HostedCoinevoAPIClient_Base')
 //
-const globalObject = global;
-const globalPromiseKey = "MyMoneroLibAppBridge_Singleton.electron"
-if (typeof globalObject[globalPromiseKey] === 'undefined' || !globalObject[globalPromiseKey]) {
-	globalObject[globalPromiseKey] = require('../mymonero_libapp_js/libapp_js/MyMoneroLibAppBridge')({asmjs: false})
+class HostedCoinevoAPIClient extends HostedCoinevoAPIClient_Base
+{
+	//
+	// Lifecycle - Init
+	constructor(options, context)
+	{
+		super(options, context)
+	}
+	//
+	// Runtime - Accessors - Private - Requests - Overrides
+	_new_apiAddress_authority() // authority means [subdomain.]host.…[:…]
+	{
+		const self = this
+		const settingsController = self.context.settingsController
+		if (settingsController.hasBooted != true) {
+			throw "Expected SettingsController to have been booted"
+		}
+		const specificAPIAddressURLAuthority = self.context.settingsController.specificAPIAddressURLAuthority || ""
+		if (specificAPIAddressURLAuthority != "") {
+			return specificAPIAddressURLAuthority
+		}
+		// fall back to coinevo.tech server
+		return super._new_apiAddress_authority()
+	}
 }
-//
-module.exports = globalObject[globalPromiseKey];
+module.exports = HostedCoinevoAPIClient

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -111,7 +111,7 @@ class RootView extends View
 			layer.style.webkitFontSmoothing = "subpixel-antialiased"
 			layer.style.cursor = "pointer"
 			layer.innerHTML = "View on GitHub"
-			layer.href = "https://www.github.com/mymonero/mymonero-app-js/releases/latest"
+			layer.href = "https://www.github.com/coinevo.tech/coinevo.tech-app-js/releases/latest"
 			layer.addEventListener("mouseenter", function(e) 
 			{
 				layer.style.textDecoration = "underline"

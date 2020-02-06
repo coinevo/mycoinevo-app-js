@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -28,13 +28,13 @@
 
 "use strict"
 //
-let monero_config = require('../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_config')
-let monero_amount_format_utils = require('../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_amount_format_utils')
-const JSBigInt = require('../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/biginteger').BigInteger
+let coinevo_config = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_config')
+let coinevo_amount_format_utils = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_amount_format_utils')
+const JSBigInt = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/biginteger').BigInteger
 //
 let ccySymbolsByCcy = exports.ccySymbolsByCcy = 
 {
-	XMR: "XMR", // included for completeness / convenience / API
+	EVO: "EVO", // included for completeness / convenience / API
 	USD: "USD",
 	AUD: "AUD",
 	BRL: "BRL",
@@ -58,7 +58,7 @@ let ccySymbolsByCcy = exports.ccySymbolsByCcy =
 }
 let allOrderedCurrencySymbols = exports.allOrderedCurrencySymbols = 
 [
-	ccySymbolsByCcy.XMR, // included for completeness / convenience / API
+	ccySymbolsByCcy.EVO, // included for completeness / convenience / API
 	ccySymbolsByCcy.USD,
 	ccySymbolsByCcy.AUD,
 	ccySymbolsByCcy.BRL,
@@ -82,12 +82,12 @@ let allOrderedCurrencySymbols = exports.allOrderedCurrencySymbols =
 ]
 let hasAtomicUnits = exports.hasAtomicUnits = function(ccySymbol) 
 {
-	return (ccySymbol == ccySymbolsByCcy.XMR)
+	return (ccySymbol == ccySymbolsByCcy.EVO)
 }
 let unitsForDisplay = exports.unitsForDisplay = function(ccySymbol)
 {
-	if (ccySymbol == ccySymbolsByCcy.XMR) {
-		return monero_config.coinUnitPlaces
+	if (ccySymbol == ccySymbolsByCcy.EVO) {
+		return coinevo_config.coinUnitPlaces
 	}
 	return 2
 }
@@ -96,8 +96,8 @@ let nonAtomicCurrency_formattedString = exports.nonAtomicCurrency_formattedStrin
 	ccySymbol
 ) { // -> String
 	// is nonAtomic-unit'd currency a good enough way to categorize these? 
-	if (ccySymbol == ccySymbolsByCcy.XMR) {
-		throw "nonAtomicCurrency_formattedString not to be called with ccySymbol=.XMR"
+	if (ccySymbol == ccySymbolsByCcy.EVO) {
+		throw "nonAtomicCurrency_formattedString not to be called with ccySymbol=.EVO"
 	}
 	if (final_amountDouble == 0) {
 		return "0" // not 0.0
@@ -136,7 +136,7 @@ let nonAtomicCurrency_formattedString = exports.nonAtomicCurrency_formattedStrin
 function roundTo(num, digits) {
     return +(Math.round(num + "e+"+digits)  + "e-"+digits);
 }
-exports.submittableMoneroAmountDouble_orNull = function(
+exports.submittableCoinevoAmountDouble_orNull = function(
 	CcyConversionRates_Controller_shared,
 	selectedCurrencySymbol,
 	submittableAmountRawNumber_orNull // passing null causes immediate return of null
@@ -146,37 +146,37 @@ exports.submittableMoneroAmountDouble_orNull = function(
 		return null
 	}
 	let submittableAmountRawNumber = submittableAmountRawNumber_orNull
-	if (selectedCurrencySymbol == ccySymbolsByCcy.XMR) {
+	if (selectedCurrencySymbol == ccySymbolsByCcy.EVO) {
 		return submittableAmountRawNumber // identity rate - NOTE: this is also the RAW non-truncated amount
 	}
-	let xmrAmountDouble = rounded_ccyConversionRateCalculated_moneroAmountNumber(
+	let evoAmountDouble = rounded_ccyConversionRateCalculated_coinevoAmountNumber(
 		CcyConversionRates_Controller_shared,
 		submittableAmountRawNumber,
 		selectedCurrencySymbol
 	)
-	return xmrAmountDouble
+	return evoAmountDouble
 }
-let rounded_ccyConversionRateCalculated_moneroAmountNumber 
-	= exports.rounded_ccyConversionRateCalculated_moneroAmountNumber 
+let rounded_ccyConversionRateCalculated_coinevoAmountNumber 
+	= exports.rounded_ccyConversionRateCalculated_coinevoAmountNumber 
 	= function(
 	CcyConversionRates_Controller_shared,
 	userInputAmountJSNumber,
 	selectedCurrencySymbol
 ) { // -> Double? // may return nil if ccyConversion rate unavailable - consumers will try again on 'didUpdateAvailabilityOfRates'
-	let xmrToCurrencyRate = CcyConversionRates_Controller_shared.rateFromXMR_orNullIfNotReady(
+	let evoToCurrencyRate = CcyConversionRates_Controller_shared.rateFromEVO_orNullIfNotReady(
 		selectedCurrencySymbol
 	)
-	if (xmrToCurrencyRate == null) {
+	if (evoToCurrencyRate == null) {
 		return null // ccyConversion rate unavailable - consumers will try again on 'didUpdateAvailabilityOfRates'
 	}
 	// conversion:
-	// currencyAmt = xmrAmt * xmrToCurrencyRate;
-	// xmrAmt = currencyAmt / xmrToCurrencyRate.
+	// currencyAmt = evoAmt * evoToCurrencyRate;
+	// evoAmt = currencyAmt / evoToCurrencyRate.
 	// I figure it's better to apply the rounding here rather than only at the display level so that what is actually sent corresponds to what the user saw, even if greater ccyConversion precision /could/ be accomplished..
-	let raw_ccyConversionRateApplied_amount = userInputAmountJSNumber * (1 / xmrToCurrencyRate)
+	let raw_ccyConversionRateApplied_amount = userInputAmountJSNumber * (1 / evoToCurrencyRate)
 	let truncated_amount = roundTo(raw_ccyConversionRateApplied_amount, 4) // must be truncated for display purposes
 	if (isNaN(truncated_amount)) {
-		throw "truncated_amount in rounded_ccyConversionRateCalculated_moneroAmountNumber is NaN"
+		throw "truncated_amount in rounded_ccyConversionRateCalculated_coinevoAmountNumber is NaN"
 	}
 	//
 	return truncated_amount
@@ -184,22 +184,22 @@ let rounded_ccyConversionRateCalculated_moneroAmountNumber
 const displayUnitsRounded_amountInCurrency = exports.displayUnitsRounded_amountInCurrency = function( // Note: __DISPLAY__ units
 	CcyConversionRates_Controller_shared,
 	ccySymbol,
-	moneroAmountNumber // NOTE: 'Double' JS Number, not JS BigInt
+	coinevoAmountNumber // NOTE: 'Double' JS Number, not JS BigInt
 ) { // -> Double?
-	if (typeof moneroAmountNumber != 'number') {
-		throw 'unexpected typeof moneroAmountNumber='+(typeof moneroAmountNumber)
+	if (typeof coinevoAmountNumber != 'number') {
+		throw 'unexpected typeof coinevoAmountNumber='+(typeof coinevoAmountNumber)
 	}
-	if (ccySymbol == ccySymbolsByCcy.XMR) {
-		return moneroAmountNumber // no conversion necessary
+	if (ccySymbol == ccySymbolsByCcy.EVO) {
+		return coinevoAmountNumber // no conversion necessary
 	}
-	let xmrToCurrencyRate = CcyConversionRates_Controller_shared.rateFromXMR_orNullIfNotReady(
+	let evoToCurrencyRate = CcyConversionRates_Controller_shared.rateFromEVO_orNullIfNotReady(
 		ccySymbol // toCurrency
 	)
-	if (xmrToCurrencyRate == null) {
+	if (evoToCurrencyRate == null) {
 		return null // ccyConversion rate unavailable - consumers will try again
 	}
 	let currency_unitsForDisplay = unitsForDisplay(ccySymbol)
-	let raw_ccyConversionRateApplied_amountNumber = moneroAmountNumber * xmrToCurrencyRate
+	let raw_ccyConversionRateApplied_amountNumber = coinevoAmountNumber * evoToCurrencyRate
 	let truncated_amount = roundTo(raw_ccyConversionRateApplied_amountNumber, currency_unitsForDisplay) // must be truncated for display purposes
 	//
 	return truncated_amount
@@ -207,19 +207,19 @@ const displayUnitsRounded_amountInCurrency = exports.displayUnitsRounded_amountI
 //
 exports.displayStringComponentsFrom = function(
 	CcyConversionRates_Controller_shared,
-	xmr_amount_JSBigInt, 
+	evo_amount_JSBigInt, 
 	displayCcySymbol
 ) {
-	let XMR = ccySymbolsByCcy.XMR
-	const xmr_amount_str = monero_amount_format_utils.formatMoney(xmr_amount_JSBigInt)
-	if (displayCcySymbol != XMR) {
+	let EVO = ccySymbolsByCcy.EVO
+	const evo_amount_str = coinevo_amount_format_utils.formatMoney(evo_amount_JSBigInt)
+	if (displayCcySymbol != EVO) {
 		// TODO: using doubles here is not very good, and must be replaced with JSBigInts to support small amounts
-		const xmr_amount_double = parseFloat(xmr_amount_str)
+		const evo_amount_double = parseFloat(evo_amount_str)
 		//
 		let displayCurrencyAmountDouble_orNull = displayUnitsRounded_amountInCurrency( 
 			CcyConversionRates_Controller_shared,
 			displayCcySymbol,
-			xmr_amount_double
+			evo_amount_double
 		)
 		if (displayCurrencyAmountDouble_orNull != null) { // rate is ready
 			let displayCurrencyAmountDouble = displayCurrencyAmountDouble_orNull
@@ -232,11 +232,11 @@ exports.displayStringComponentsFrom = function(
 				ccy_str: displayCcySymbol 
 			}
 		} else {
-			// rate is not ready, so wait for it by falling through to display XMR:
+			// rate is not ready, so wait for it by falling through to display EVO:
 		}
 	}
 	return { 
-		amt_str: xmr_amount_str, 
-		ccy_str: XMR
+		amt_str: evo_amount_str, 
+		ccy_str: EVO
 	} // special case
 }

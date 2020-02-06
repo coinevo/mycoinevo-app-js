@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -31,7 +31,7 @@
 const wants_electronRemote = true // becaus we're only ever including this in the electron renderer process
 //
 const fn_names = require('./__bridged_fns_spec.electron').bridgedFn_names;
-const moneroUtils_promise_fn = function(options)
+const coinevoUtils_promise_fn = function(options)
 {
 	options = options || {}
 	//
@@ -227,7 +227,7 @@ const moneroUtils_promise_fn = function(options)
 		// we can make API async.
 		// 
 		// Resolves relative to the entrypoint of the main process.
-		const remoteModule = require('electron').remote.require("../MoneroUtils/__IPCSafe_remote_monero_utils.electron");
+		const remoteModule = require('electron').remote.require("../CoinevoUtils/__IPCSafe_remote_coinevo_utils.electron");
 		// Oftentimes this will be ready right away.. somehow.. but just in case.. the readiness
 		// state promise behavior should be preserved by the following codepath...
 		var _try;
@@ -300,4 +300,4 @@ function __IPCbridge_call_cb_key__success(call_id)
 //
 // TODO: in future, possibly return function which takes options instead to support better env.
 //
-module.exports = moneroUtils_promise_fn;
+module.exports = coinevoUtils_promise_fn;

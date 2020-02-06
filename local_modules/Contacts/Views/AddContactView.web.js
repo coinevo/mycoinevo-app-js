@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -29,12 +29,12 @@
 "use strict"
 //
 const ContactFormView = require('./ContactFormView.web')
-const monero_paymentID_utils = require('../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_paymentID_utils')
+const coinevo_paymentID_utils = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_paymentID_utils')
 const commonComponents_activityIndicators = require('../../MMAppUICommonComponents/activityIndicators.web')
 const commonComponents_actionButtons = require('../../MMAppUICommonComponents/actionButtons.web')
 //
 const jsQR = require('jsqr')
-const monero_requestURI_utils = require('../../MoneroUtils/monero_requestURI_utils')
+const coinevo_requestURI_utils = require('../../CoinevoUtils/coinevo_requestURI_utils')
 //
 //
 class AddContactView extends ContactFormView
@@ -172,7 +172,7 @@ class AddContactView extends ContactFormView
 			return
 		}
 		if (typeof paymentID !== 'undefined' && paymentID) {
-			if (self.context.monero_utils.is_subaddress(address, self.context.nettype)) { // paymentID disallowed with subaddress
+			if (self.context.coinevo_utils.is_subaddress(address, self.context.nettype)) { // paymentID disallowed with subaddress
 				self.validationMessageLayer.SetValidationError("Payment IDs cannot be used with subaddresses.")
 				return
 			}
@@ -183,7 +183,7 @@ class AddContactView extends ContactFormView
 			console.log("💬  Skipping OA resolve on AddContact.")
 			_proceedTo_addContact_paymentID(
 				paymentID, // can apparently use the exact field value
-				undefined // NOTE: This, cached_OAResolved_XMR_address, can be supplied by subclass._willSaveContactWithDescription
+				undefined // NOTE: This, cached_OAResolved_EVO_address, can be supplied by subclass._willSaveContactWithDescription
 			) 
 			return
 		}
@@ -202,13 +202,13 @@ class AddContactView extends ContactFormView
 		//
 		self.cancelAny_requestHandle_for_oaResolution() // jic
 		const openAliasResolver = self.context.openAliasResolver
-		if (openAliasResolver.DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress(address) === false) {
+		if (openAliasResolver.DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress(address) === false) {
 			var address__decode_result; 
 			try {
-				address__decode_result = self.context.monero_utils.decode_address(address, self.context.nettype)
+				address__decode_result = self.context.coinevo_utils.decode_address(address, self.context.nettype)
 			} catch (e) {
 				__reEnableForm()
-				self.validationMessageLayer.SetValidationError("Please enter a valid Monero address") // not using the error here cause it can be pretty unhelpful to the lay user
+				self.validationMessageLayer.SetValidationError("Please enter a valid Coinevo address") // not using the error here cause it can be pretty unhelpful to the lay user
 				return
 			}
 			const integratedAddress_paymentId = address__decode_result.intPaymentId
@@ -217,12 +217,12 @@ class AddContactView extends ContactFormView
 				paymentID = integratedAddress_paymentId // use this one instead
 				self.paymentIDInputLayer.value = paymentID
 			} else { // not an integrated addr - normal wallet addr or subaddress
-				if (self.context.monero_utils.is_subaddress(address, self.context.nettype)) { // paymentID disallowed with subaddress
+				if (self.context.coinevo_utils.is_subaddress(address, self.context.nettype)) { // paymentID disallowed with subaddress
 					paymentID = undefined
 					self.paymentIDInputLayer.value = ""
 				} else { // normal wallet address
 					if (paymentID === "" || typeof paymentID === 'undefined') { // if no existing payment ID
-						paymentID = self.context.monero_utils.new_payment_id() // generate new one for them
+						paymentID = self.context.coinevo_utils.new_payment_id() // generate new one for them
 						self.paymentIDInputLayer.value = paymentID
 					} else { // just use/allow entered paymentID
 					}
@@ -238,7 +238,7 @@ class AddContactView extends ContactFormView
 				function(
 					err,
 					addressWhichWasPassedIn,
-					moneroReady_address,
+					coinevoReady_address,
 					returned__payment_id, // may be undefined
 					tx_description,
 					openAlias_domain,
@@ -269,19 +269,19 @@ class AddContactView extends ContactFormView
 					// still not going to re-enable the button (although on non-Cordova it wouldn't matter)
 					//
 					const payment_id__toSave = returned__payment_id || ""
-					const cached_OAResolved_XMR_address = moneroReady_address
+					const cached_OAResolved_EVO_address = coinevoReady_address
 					_proceedTo_addContact_paymentID(
 						payment_id__toSave, // aka use no/zero/emptystr payment id rather than null as null will create a new
-						cached_OAResolved_XMR_address // it's ok if this is undefined
+						cached_OAResolved_EVO_address // it's ok if this is undefined
 					) 
 				}
 			)
 		}
 		//
-		function _proceedTo_addContact_paymentID(paymentID__toSave, cached_OAResolved_XMR_address__orUndefined)
+		function _proceedTo_addContact_paymentID(paymentID__toSave, cached_OAResolved_EVO_address__orUndefined)
 		{
 			const paymentID_exists = paymentID__toSave && typeof paymentID__toSave !== 'undefined'
-			const paymentID_existsAndIsNotValid = paymentID_exists && monero_paymentID_utils.IsValidPaymentIDOrNoPaymentID(paymentID__toSave) === false
+			const paymentID_existsAndIsNotValid = paymentID_exists && coinevo_paymentID_utils.IsValidPaymentIDOrNoPaymentID(paymentID__toSave) === false
 			if (paymentID_existsAndIsNotValid === true) {
 				__reEnableForm()
 				self.validationMessageLayer.SetValidationError("Please enter a valid payment ID.")
@@ -293,7 +293,7 @@ class AddContactView extends ContactFormView
 				emoji: emoji,
 				address: address,
 				payment_id: paymentID__toSave,
-				cached_OAResolved_XMR_address: cached_OAResolved_XMR_address__orUndefined
+				cached_OAResolved_EVO_address: cached_OAResolved_EVO_address__orUndefined
 			}
 			self._willSaveContactWithDescription(contactDescription)
 			self.context.contactsListController.WhenBooted_AddContact(
@@ -370,16 +370,16 @@ class AddContactView extends ContactFormView
 				//
 				const code = jsQR(imageData.data, imageData.width, imageData.height)
 				if (!code || !code.location) {
-					self.validationMessageLayer.SetValidationError("MyMonero was unable to find a QR code in that image.")
+					self.validationMessageLayer.SetValidationError("MyCoinevo was unable to find a QR code in that image.")
 					return
 				}
 				const stringData = code.data
 				if (!stringData) {
-					self.validationMessageLayer.SetValidationError("MyMonero was unable to decode a QR code from that image.")
+					self.validationMessageLayer.SetValidationError("MyCoinevo was unable to decode a QR code from that image.")
 					return
 				}
 				if (typeof stringData !== 'string') {
-					self.validationMessageLayer.SetValidationError("MyMonero was able to decode QR code but got unrecognized result.")
+					self.validationMessageLayer.SetValidationError("MyCoinevo was able to decode QR code but got unrecognized result.")
 					return
 				}
 				const possibleUriString = stringData
@@ -401,7 +401,7 @@ class AddContactView extends ContactFormView
 		//
 		var parsedPayload;
 		try {
-			parsedPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
+			parsedPayload = coinevo_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.coinevo_utils)
 		} catch (errStr) {
 			if (errStr) {
 				self.addressInputLayer.value = "" // decided to clear the address field to avoid confusion

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -41,7 +41,7 @@ class ModalStandaloneAboutView extends RootView
 	// Runtime - Accessors - Navigation
 	Navigation_Title()
 	{
-		return "About MyMonero"
+		return "About MyCoinevo"
 	}
 	Navigation_New_LeftBarButtonView()
 	{

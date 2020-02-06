@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -30,13 +30,13 @@
 //
 const async = require('async')
 //
-const JSBigInt = require('../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/biginteger').BigInteger // important: grab defined export
-const monero_config = require('../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_config')
-const net_service_utils = require('../mymonero_libapp_js/mymonero-core-js/hostAPI/net_service_utils')
+const JSBigInt = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/biginteger').BigInteger // important: grab defined export
+const coinevo_config = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_config')
+const net_service_utils = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/hostAPI/net_service_utils')
 //
-const config__MyMonero = require('./config__MyMonero')
+const config__MyCoinevo = require('./config__MyCoinevo')
 //
-class HostedMoneroAPIClient_Base
+class HostedCoinevoAPIClient_Base
 {
 	//
 	// Lifecycle - Initialization
@@ -71,7 +71,7 @@ class HostedMoneroAPIClient_Base
 	// Runtime - Accessors - Private - Requests
 	_new_apiAddress_authority() 
 	{ // overridable
-		return config__MyMonero.API__authority
+		return config__MyCoinevo.API__authority
 	}
 	//
 	// Runtime - Accessors - Public - Requests
@@ -351,13 +351,13 @@ class HostedMoneroAPIClient_Base
 	{
 		const self = this
 		// just a debug feature:
-		if (self.context.HostedMoneroAPIClient_DEBUGONLY_mockSendTransactionSuccess === true) {
+		if (self.context.HostedCoinevoAPIClient_DEBUGONLY_mockSendTransactionSuccess === true) {
 			if (self.context.isDebug === true) {
 				console.warn("⚠️  WARNING: Mocking that SubmitSerializedSignedTransaction returned a success response w/o having hit the server.")
 				fn(null, {})
 				return
 			} else {
-				throw `[${self.constructor.name}/SubmitSerializedSignedTransaction]: context.HostedMoneroAPIClient_DEBUGONLY_mockSendTransactionSuccess was true despite isDebug not being true. Set back to false for production build.`
+				throw `[${self.constructor.name}/SubmitSerializedSignedTransaction]: context.HostedCoinevoAPIClient_DEBUGONLY_mockSendTransactionSuccess was true despite isDebug not being true. Set back to false for production build.`
 			}
 		}
 		net_service_utils.AddUserAgentParamters(
@@ -378,4 +378,4 @@ class HostedMoneroAPIClient_Base
 		return requestHandle
 	}
 }
-module.exports = HostedMoneroAPIClient_Base
+module.exports = HostedCoinevoAPIClient_Base

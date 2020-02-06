@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -61,32 +61,32 @@ class Controller extends EventEmitter
 		self.setMaxListeners(999) // avoid error
 		//
 		// Internal - Properties
-		self.xmrToCcyRateJSNumbersByCcySymbols = {} // [CurrencySymbol: Rate]
+		self.evoToCcyRateJSNumbersByCcySymbols = {} // [CurrencySymbol: Rate]
 	}
 	//
 	// Interface - Accessors
 	isRateReady( // if you won't need the actual value
-		ccySymbol // fromXMRToCurrencySymbol
+		ccySymbol // fromEVOToCurrencySymbol
 	) // -> Bool
 	{
 		const self = this
 		//
-		if (ccySymbol == Currencies.ccySymbolsByCcy.XMR) {
+		if (ccySymbol == Currencies.ccySymbolsByCcy.EVO) {
 			throw "Invalid 'currency' argument value"
 		}
-		let rateValue_orNil = self.xmrToCcyRateJSNumbersByCcySymbols[ccySymbol]
+		let rateValue_orNil = self.evoToCcyRateJSNumbersByCcySymbols[ccySymbol]
 		return (rateValue_orNil != null && typeof rateValue_orNil !== 'undefined')
 	}
-	rateFromXMR_orNullIfNotReady(
+	rateFromEVO_orNullIfNotReady(
 		ccySymbol // toCurrency
 	) // -> Rate?
 	{
 		const self = this
 		//
-		if (ccySymbol == Currencies.ccySymbolsByCcy.XMR) {
+		if (ccySymbol == Currencies.ccySymbolsByCcy.EVO) {
 			throw "Invalid 'currency' argument value"
 		}
-		let rateValue_orNil = self.xmrToCcyRateJSNumbersByCcySymbols[ccySymbol] // which may be nil if the rate is not ready yet
+		let rateValue_orNil = self.evoToCcyRateJSNumbersByCcySymbols[ccySymbol] // which may be nil if the rate is not ready yet
 		if (rateValue_orNil == null || typeof rateValue_orNil === 'undefined') {
 			return null // value=null|undefined -> null
 		}
@@ -96,9 +96,9 @@ class Controller extends EventEmitter
 	//
 	// Interface - Imperatives
 	set(
-		rateAsNumber, // XMRToCurrencyRate; non-nil … ought to only need to be set to nil internally
+		rateAsNumber, // EVOToCurrencyRate; non-nil … ought to only need to be set to nil internally
 		ccySymbol, // forCurrency
-		isPartOfBatch // internally, aka doNotNotify; defaults to false; normally false … but pass true for batch calls and then call ifBatched_notifyOf_set_XMRToCurrencyRate manually (arg is called doNotNotify b/c if part of batch, you only want to do currency-non-specific notify post once instead of N times)
+		isPartOfBatch // internally, aka doNotNotify; defaults to false; normally false … but pass true for batch calls and then call ifBatched_notifyOf_set_EVOToCurrencyRate manually (arg is called doNotNotify b/c if part of batch, you only want to do currency-non-specific notify post once instead of N times)
 	) // -> Bool // wasSetValueDifferent
 	{
 		const self = this
@@ -107,26 +107,26 @@ class Controller extends EventEmitter
 			throw "unexpected nil rateAsNumber passed to CcyConversionRates.Controller.set()"
 		}
 		let doNotNotify = isPartOfBatch
-		let raw_previouslyExisting_rateValue = self.xmrToCcyRateJSNumbersByCcySymbols[ccySymbol]
+		let raw_previouslyExisting_rateValue = self.evoToCcyRateJSNumbersByCcySymbols[ccySymbol]
 		let previouslyExistingRateValue_orNull = raw_previouslyExisting_rateValue != null && typeof raw_previouslyExisting_rateValue !== 'undefined' ? raw_previouslyExisting_rateValue : null
 		//
-		self.xmrToCcyRateJSNumbersByCcySymbols[ccySymbol] = rateAsNumber
+		self.evoToCcyRateJSNumbersByCcySymbols[ccySymbol] = rateAsNumber
 		//
 		if (doNotNotify != true) {
-			self._notifyOf_updateTo_XMRToCurrencyRate() // the default
+			self._notifyOf_updateTo_EVOToCurrencyRate() // the default
 		}
 		var wasSetValueDifferent = rateAsNumber != previouslyExistingRateValue_orNull // given rateAsNumber != nil
 		return wasSetValueDifferent
 	}
-	ifBatched_notifyOf_set_XMRToCurrencyRate()
+	ifBatched_notifyOf_set_EVOToCurrencyRate()
 	{
 		const self = this
 		//
 		// console.log(
 		// 	"CcyConversionRates: Received updates:", 
-		// 	JSON.stringify(self.xmrToCcyRateJSNumbersByCcySymbols, null, '  ')
+		// 	JSON.stringify(self.evoToCcyRateJSNumbersByCcySymbols, null, '  ')
 		// )
-		self._notifyOf_updateTo_XMRToCurrencyRate()
+		self._notifyOf_updateTo_EVOToCurrencyRate()
 	}
 	//
 	set_batchOf_ratesBySymbol(
@@ -141,8 +141,8 @@ class Controller extends EventEmitter
 			let numberOf_ccySymbols = ccySymbols.length
 			for (var i = 0 ; i < numberOf_ccySymbols ; i++) {
 				let ccySymbol = ccySymbols[i]
-				if (ccySymbol == Currencies.ccySymbolsByCcy.XMR) {
-					continue; // do not need to mock XMR<->XMR rate
+				if (ccySymbol == Currencies.ccySymbolsByCcy.EVO) {
+					continue; // do not need to mock EVO<->EVO rate
 				}
 				let rateAsNumber = ratesBySymbol[ccySymbol]
 				if (typeof rateAsNumber !== 'undefined') { // but this WILL allow nulls! is that ok? figure being able to nil serverside might be important... and if it is null from server, invalidating/expiring the local value is probably therefore a good idea
@@ -160,12 +160,12 @@ class Controller extends EventEmitter
 		let didUpdateAnyValues = mutable_didUpdateAnyValues
 		if (didUpdateAnyValues) {
 			// notify all of update
-			self.ifBatched_notifyOf_set_XMRToCurrencyRate()
+			self.ifBatched_notifyOf_set_EVOToCurrencyRate()
 		}
 	}
 	//
 	// Internal - Imperatives
-	_notifyOf_updateTo_XMRToCurrencyRate()
+	_notifyOf_updateTo_EVOToCurrencyRate()
 	{
 		const self = this
 		//

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -42,7 +42,7 @@ exports.default = async function(context)
   const dirname = context.appOutDir
   chdir(dirname)
 
-  const appname_lc = "mymonero"
+  const appname_lc = "coinevo.tech"
   console.log("~~~~~> WARNING: Applying customization to wrap actual "+appname_lc+".bin in a call with arg '--no-sandbox' to https://github.com/electron-userland/electron-builder/issues/3872")
 
   await exec('mv', [appname_lc, `${appname_lc}.bin`])

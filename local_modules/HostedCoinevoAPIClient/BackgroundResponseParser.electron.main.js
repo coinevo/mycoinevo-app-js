@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -30,9 +30,9 @@
 //
 const { ipcMain } = require('electron')
 //
-const response_parser_utils = require('../mymonero_libapp_js/mymonero-core-js/hostAPI/response_parser_utils')
-const monero_keyImage_cache_utils = require('../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_keyImage_cache_utils')
-const coreBridgeLoading_promise = require('../MoneroUtils/MyMoneroLibAppBridge_Singleton.electron')
+const response_parser_utils = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/hostAPI/response_parser_utils')
+const coinevo_keyImage_cache_utils = require('../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_keyImage_cache_utils')
+const coreBridgeLoading_promise = require('../CoinevoUtils/MyCoinevoLibAppBridge_Singleton.electron')
 //
 class BackgroundResponseParser
 {
@@ -114,7 +114,7 @@ class BackgroundResponseParser
 			function(event, params)
 			{
 				// console.time("DeleteManagedKeyImagesForWalletWith: " + taskUUID)
-				monero_keyImage_cache_utils.DeleteManagedKeyImagesForWalletWith(params.address)
+				coinevo_keyImage_cache_utils.DeleteManagedKeyImagesForWalletWith(params.address)
 				const err = null
 				// console.timeEnd("DeleteManagedKeyImagesForWalletWith: " + taskUUID)
 				event.sender.send(

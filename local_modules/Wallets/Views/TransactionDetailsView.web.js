@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -32,8 +32,8 @@ const View = require('../../Views/View.web')
 const commonComponents_tables = require('../../MMAppUICommonComponents/tables.web')
 const commonComponents_forms = require('../../MMAppUICommonComponents/forms.web')
 const commonComponents_navigationBarButtons = require('../../MMAppUICommonComponents/navigationBarButtons.web')
-const monero_amount_format_utils = require("../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_amount_format_utils");
-const JSBigInt = require('../../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/biginteger').BigInteger
+const coinevo_amount_format_utils = require("../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_amount_format_utils");
+const JSBigInt = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/biginteger').BigInteger
 //
 class TransactionDetailsView extends View
 {
@@ -83,7 +83,7 @@ class TransactionDetailsView extends View
 		{
 			const layer = commonComponents_tables.New_inlineMessageDialogLayer(
 				self.context, 
-				"Your Monero is on its way.",
+				"Your Coinevo is on its way.",
 				false // for now
 			)
 			layer.style.width = "calc(100% - 0px)"
@@ -347,7 +347,7 @@ class TransactionDetailsView extends View
 		const tx = self.transaction
 		const received_JSBigInt = tx.total_received ? (typeof tx.total_received == 'string' ? new JSBigInt(tx.total_received) : tx.total_received) : new JSBigInt("0")
 		const sent_JSBigInt = tx.total_sent ? (typeof tx.total_sent == 'string' ? new JSBigInt(tx.total_sent) : tx.total_sent) : new JSBigInt("0")
-		return monero_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
+		return coinevo_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
 	}
 	Navigation_New_RightBarButtonView()
 	{
@@ -452,7 +452,7 @@ class TransactionDetailsView extends View
 			const tx = self.transaction
 			const received_JSBigInt = tx.total_received ? (typeof tx.total_received == 'string' ? new JSBigInt(tx.total_received) : tx.total_received) : new JSBigInt("0")
 			const sent_JSBigInt = tx.total_sent ? (typeof tx.total_sent == 'string' ? new JSBigInt(tx.total_sent) : tx.total_sent) : new JSBigInt("0")
-			const value = monero_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
+			const value = coinevo_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
 			var color;
 			if (isOutgoing) {
 				color = "#F97777"

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -112,11 +112,11 @@ class MenuController extends MenuController_Abstract
 		const appName = self.context.app.getName()
 		//
 		const menuSpecs = []
-		{ // MyMonero menu
+		{ // MyCoinevo menu
 			const submenu = 
 			[
 				{
-					label: 'About MyMonero',
+					label: 'About MyCoinevo',
 					click: function(menuItem, browserWindow, event)
 					{
 						self.context.aboutWindowController.MakeKeyAndVisible()
@@ -149,7 +149,7 @@ class MenuController extends MenuController_Abstract
 						if (isLinux) { // linux has no support for updates in the app afaik so this is redirected to the downloads page - the user is advised to update via their pkg mgmt system - can that be integrated?
 							const shell = require('electron').shell
 							shell.openExternal( // maybe share this constant with AppUpdatesController.electron.main and anything else that may need it in the future but file it under 'releases' and not 'release notes' despite its usage in AppUpdatesC
-								"https://github.com/mymonero/mymonero-app-js/releases"
+								"https://github.com/coinevo.tech/coinevo.tech-app-js/releases"
 							)
 							return;
 						}
@@ -309,10 +309,10 @@ class MenuController extends MenuController_Abstract
 			const submenu = 
 			[
 				{
-					label: 'MyMonero.com',
+					label: 'MyCoinevo.com',
 					click: function(menuItem, browserWindow, event)
 					{
-						shell.openExternal('https://mymonero.com/')
+						shell.openExternal('https://coinevo.tech.com/')
 					}
 				},
 				{
@@ -322,14 +322,14 @@ class MenuController extends MenuController_Abstract
 					label: 'Help Center',
 					click: function(menuItem, browserWindow, event)
 					{
-						shell.openExternal('https://intercom.help/mymonero')
+						shell.openExternal('https://intercom.help/coinevo.tech')
 					}
 				},
 				{
 					label: 'Support',
 					click: function(menuItem, browserWindow, event)
 					{
-						shell.openExternal('https://mymonero.com/?open_support=1')
+						shell.openExternal('https://coinevo.tech.com/?open_support=1')
 					}
 				},
 				{
@@ -349,14 +349,14 @@ class MenuController extends MenuController_Abstract
 					label: 'Privacy Policy',
 					click: function(menuItem, browserWindow, event)
 					{
-						shell.openExternal('https://mymonero.com/privacy')
+						shell.openExternal('https://coinevo.tech.com/privacy')
 					}
 				},
 				{
 					label: 'Terms of Use',
 					click: function(menuItem, browserWindow, event)
 					{
-						shell.openExternal('https://mymonero.com/terms')
+						shell.openExternal('https://coinevo.tech.com/terms')
 					}
 				}
 			]

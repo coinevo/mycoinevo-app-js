@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -158,7 +158,7 @@ class FundsRequestsListView extends ListView
 	//
 	Navigation_Title()
 	{
-		return "Receive Monero"
+		return "Receive Coinevo"
 	}
 	Navigation_New_RightBarButtonView()
 	{

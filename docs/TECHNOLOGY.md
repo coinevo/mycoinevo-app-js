@@ -1,6 +1,6 @@
-# MyMonero Desktop & Mobile Apps
+# MyCoinevo Desktop & Mobile Apps
 
-![Logo](https://raw.githubusercontent.com/mymonero/mymonero-app-js/master/docs/assets/icon_100.png "Logo")
+![Logo](https://raw.githubusercontent.com/coinevo.tech/coinevo.tech-app-js/master/docs/assets/icon_100.png "Logo")
 
 ## Technology Notes
 
@@ -44,7 +44,7 @@ Note that the wallet mnemonic generation in the desktop version is now implement
 
 2. `local_modules/runtime_context` and implementors in `electron_main` and `MainWindow`
 
-3. `local_modules/mymonero_libapp_js`
+3. `local_modules/coinevo.tech_libapp_js`
 
 
 ### "Store arbitrary encrypted structured data locally"
@@ -84,7 +84,7 @@ All API calls (such as submitting a constructed transaction for a send-funds ope
 
 1. `local_modules/Wallets/Controllers/WalletHostPollingController.js`
 
-2. `local_modules/HostedMoneroAPIClient`
+2. `local_modules/HostedCoinevoAPIClient`
 
 
 ### "Could be easily turned into a native mobile app"
@@ -103,7 +103,7 @@ React definitely *does* solve what has been one of the main drawbacks of browser
 
 To accomplish the same benefit, Paul opted instead for the approach found in native UI development and wrote a very lightweight view class in JS [1] to mimick how UIs are built in Apple's UIKit. The main difference in API is that iOS Views are backed by CALayers, whereas these are simply backed by DOM elements, referred to as their `layer`s. This approach had numerous benefits, and was used to quickly reproduce the workhorse components used throughout the app, such as the navigation, tab bar, lists (tables) & cells, etc. [2]. One important difference to remember is that these DOM Views are styled by CSS, which means they do not have a `layoutSubviews` function, as exists on iOS. (It might be great to find a way to implement one, though, if it were low-enough level.) 
 
-In many cases while building reusable components for the MyMonero wallet app UI, it wasn't justified to create a standlone `local_modules/` module or a standalone View-class-exporting file. In which cases, such components were either left in their instantiators' code (if their functions were specific to their instantiators' domains) or, if reusable, factored out into a factory function in a file in the "Common Components" module [3].
+In many cases while building reusable components for the MyCoinevo wallet app UI, it wasn't justified to create a standlone `local_modules/` module or a standalone View-class-exporting file. In which cases, such components were either left in their instantiators' code (if their functions were specific to their instantiators' domains) or, if reusable, factored out into a factory function in a file in the "Common Components" module [3].
 
 In order to facilitate and encourage keeping styles bundled within executable Javascript UI code, a small utility library for lazily injecting CSS rules and stylesheets was written [4].
 
@@ -139,11 +139,11 @@ All of these conventions taken together, in addition to concrete and precise cod
 
 As of the time of writing, performance under Cordova is less than ideal.
 
-A few days have been put into instrumenting and then optimizing performance, and a handful of remaining performance improvement tasks and suggested directions have been placed into the [Issues](https://github.com/mymonero/monero-app-js/issues) tracker.
+A few days have been put into instrumenting and then optimizing performance, and a handful of remaining performance improvement tasks and suggested directions have been placed into the [Issues](https://github.com/coinevo.tech/coinevo-app-js/issues) tracker.
 
 Of note was the disabling or (in the case of wallet icons) replacement of `box-shadow` / gradient-heavy DOM elements, controlled by special flags on the `context` object.
 
-Additional information about progress and remaining targets in the ongoing Cordova app optimization effort can be found on issues [#63](https://github.com/mymonero/mymonero-app-js/issues/63), [#76](https://github.com/mymonero/mymonero-app-js/issues/76).
+Additional information about progress and remaining targets in the ongoing Cordova app optimization effort can be found on issues [#63](https://github.com/coinevo.tech/coinevo.tech-app-js/issues/63), [#76](https://github.com/coinevo.tech/coinevo.tech-app-js/issues/76).
 
 #### Cordova build directory structure & intermediate products
 

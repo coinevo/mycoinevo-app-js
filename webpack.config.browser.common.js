@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -38,7 +38,7 @@ module.exports =
 	entry: "./local_modules/MainWindow/Views/index.browser.js",
 	output: {
 		path: path.resolve(__dirname, "browser_build"),
-		filename: "mymonero-app-bundle.js"
+		filename: "coinevo.tech-app-bundle.js"
 	},
 	cache: false,
 	resolve: {
@@ -84,16 +84,16 @@ module.exports =
 				exclude: {
 					test: [
 						path.join(__dirname, 'node_modules'),
-						/MyMoneroCoreCpp_ASMJS\.asm\.js/,
-						/MyMoneroCoreCpp_ASMJS\.wasm/,
-						/MyMoneroCoreCpp_WASM\.js/,
-						/MyMoneroCoreCpp_WASM\.wasm/,
-						/MyMoneroCoreBridge\.js/,
-						/MyMoneroCoreBridgeClass\.js/
+						/MyCoinevoCoreCpp_ASMJS\.asm\.js/,
+						/MyCoinevoCoreCpp_ASMJS\.wasm/,
+						/MyCoinevoCoreCpp_WASM\.js/,
+						/MyCoinevoCoreCpp_WASM\.wasm/,
+						/MyCoinevoCoreBridge\.js/,
+						/MyCoinevoCoreBridgeClass\.js/
 					],
 					exclude: [
-						path.resolve(__dirname, 'mymonero-core-js/tests'),
-						path.resolve(__dirname, 'mymonero_libapp_js/tests'),
+						path.resolve(__dirname, 'coinevo.tech-core-js/tests'),
+						path.resolve(__dirname, 'coinevo.tech_libapp_js/tests'),
 					]
 				},
 				use: [

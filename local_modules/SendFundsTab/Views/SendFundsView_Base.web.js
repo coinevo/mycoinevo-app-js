@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -43,17 +43,17 @@ const commonComponents_actionButtons = require('../../MMAppUICommonComponents/ac
 //
 const JustSentTransactionDetailsView = require('./JustSentTransactionDetailsView.web')
 //
-const monero_sendingFunds_utils = require('../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_sendingFunds_utils')
-const monero_openalias_utils = require('../../OpenAlias/monero_openalias_utils')
-const monero_paymentID_utils = require('../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_paymentID_utils')
-const monero_config = require('../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_config')
-const monero_amount_format_utils = require('../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_amount_format_utils')
+const coinevo_sendingFunds_utils = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_sendingFunds_utils')
+const coinevo_openalias_utils = require('../../OpenAlias/coinevo_openalias_utils')
+const coinevo_paymentID_utils = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_paymentID_utils')
+const coinevo_config = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_config')
+const coinevo_amount_format_utils = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_amount_format_utils')
 //
 const jsQR = require('jsqr')
-const monero_requestURI_utils = require('../../MoneroUtils/monero_requestURI_utils')
+const coinevo_requestURI_utils = require('../../CoinevoUtils/coinevo_requestURI_utils')
 //
 let Currencies = require('../../CcyConversionRates/Currencies')
-let JSBigInt = require('../../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/biginteger').BigInteger // important: grab defined export
+let JSBigInt = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/biginteger').BigInteger // important: grab defined export
 //
 let rateServiceDomainText = "cryptocompare.com" 
 //
@@ -232,7 +232,7 @@ class SendFundsView extends View
 		{
 			const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("FROM", self.context)
 			{
-				const tooltipText = `Monero makes transactions<br/>with your "available outputs",<br/>so part of your balance will<br/>be briefly locked and then<br/>returned as change.`
+				const tooltipText = `Coinevo makes transactions<br/>with your "available outputs",<br/>so part of your balance will<br/>be briefly locked and then<br/>returned as change.`
 				const view = commonComponents_tooltips.New_TooltipSpawningButtonView(tooltipText, self.context)
 				const layer = view.layer
 				labelLayer.appendChild(layer) // we can append straight to labelLayer as we don't ever change its innerHTML
@@ -298,7 +298,7 @@ class SendFundsView extends View
 		self.effectiveAmountLabelLayer = pkg.effectiveAmountLabelLayer // for configuration
 		{
 			const tooltipText = `Currency selector for<br/>display purposes only.<br/>The app will send ${
-				Currencies.ccySymbolsByCcy.XMR
+				Currencies.ccySymbolsByCcy.EVO
 			}.<br/><br/>Rate providers include<br/>${
 				rateServiceDomainText
 			}.`
@@ -322,7 +322,7 @@ class SendFundsView extends View
 			breakingDiv.appendChild(layer)
 		}
 		{
-			const tooltipText = "Based on Monero network<br/>fee estimate (not final).<br/><br/>MyMonero does not charge<br/>a transfer service fee."
+			const tooltipText = "Based on Coinevo network<br/>fee estimate (not final).<br/><br/>MyCoinevo does not charge<br/>a transfer service fee."
 			const view = commonComponents_tooltips.New_TooltipSpawningButtonView(tooltipText, self.context)
 			const layer = view.layer
 			breakingDiv.appendChild(layer)
@@ -347,7 +347,7 @@ class SendFundsView extends View
 		const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("TO", self.context)
 		labelLayer.style.marginTop = "17px" // to square with MEMO field on Send Funds
 		{
-			const tooltipText = `Drag &amp; drop QR codes<br/>to auto-fill.<br/><br/>Please double-check<br/>your recipient info as<br/>Monero transfers are<br/>not yet&nbsp;reversible.`
+			const tooltipText = `Drag &amp; drop QR codes<br/>to auto-fill.<br/><br/>Please double-check<br/>your recipient info as<br/>Coinevo transfers are<br/>not yet&nbsp;reversible.`
 			const view = commonComponents_tooltips.New_TooltipSpawningButtonView(tooltipText, self.context)
 			const layer = view.layer
 			labelLayer.appendChild(layer) // we can append straight to labelLayer as we don't ever change its innerHTML
@@ -379,13 +379,13 @@ class SendFundsView extends View
 			self.resolving_activityIndicatorLayer = layer
 			div.appendChild(layer)
 		}
-		{ // resolved monero address field
+		{ // resolved coinevo address field
 			const fieldContainerLayer = document.createElement("div")
 			self.resolvedAddress_containerLayer = fieldContainerLayer
 			div.appendChild(fieldContainerLayer)
 			fieldContainerLayer.style.display = "none" // initial state
 			{
-				const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("MONERO ADDRESS", self.context)
+				const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("COINEVO ADDRESS", self.context)
 				labelLayer.style.marginTop = "12px" // instead of 15
 				fieldContainerLayer.appendChild(labelLayer)
 				//
@@ -394,7 +394,7 @@ class SendFundsView extends View
 				fieldContainerLayer.appendChild(valueLayer)
 			}
 		}
-		{ // resolved monero payment id
+		{ // resolved coinevo payment id
 			const fieldContainerLayer = document.createElement("div")
 			self.resolvedPaymentID_containerLayer = fieldContainerLayer
 			div.appendChild(fieldContainerLayer)
@@ -458,7 +458,7 @@ class SendFundsView extends View
 					self.context, 
 					function()
 					{
-						self.manualPaymentIDInputLayer.value = self.context.monero_utils.new_payment_id()
+						self.manualPaymentIDInputLayer.value = self.context.coinevo_utils.new_payment_id()
 					}
 				)
 				self.generateButtonView = generateButtonView
@@ -506,7 +506,7 @@ class SendFundsView extends View
 			const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("PRIORITY", self.context)
 			labelLayer.style.marginTop = "4px"
 			{
-				const tooltipText = `You can pay the Monero<br/>network a higher fee to<br/>have your transfers<br/>confirmed faster.`
+				const tooltipText = `You can pay the Coinevo<br/>network a higher fee to<br/>have your transfers<br/>confirmed faster.`
 				const view = commonComponents_tooltips.New_TooltipSpawningButtonView(tooltipText, self.context)
 				const layer = view.layer
 				labelLayer.appendChild(layer) // we can append straight to labelLayer as we don't ever change its innerHTML
@@ -522,7 +522,7 @@ class SendFundsView extends View
 			//
 			let selectLayer = document.createElement("select")
 			{
-				const defaultValue = monero_sendingFunds_utils.default_priority()
+				const defaultValue = coinevo_sendingFunds_utils.default_priority()
 				let values = 
 				[ 
 					1,
@@ -711,7 +711,7 @@ class SendFundsView extends View
 			div.style.fontWeight = "300"
 			div.style.webkitFontSmoothing = "subpixel-antialiased"
 			//
-			div.innerHTML = "Drag and drop a<br/>Monero Request Code "
+			div.innerHTML = "Drag and drop a<br/>Coinevo Request Code "
 			self.qrCodeInputs_contentView.layer.appendChild(div)
 		}
 		self.addSubview(view)
@@ -927,7 +927,7 @@ class SendFundsView extends View
 	//
 	Navigation_Title()
 	{
-		return "Send Monero"
+		return "Send Coinevo"
 	}
 	Navigation_New_RightBarButtonView()
 	{
@@ -953,10 +953,10 @@ class SendFundsView extends View
 	}
 	//
 	// Accessors - Factories - Values
-	new_xmr_estFeeAmount() 
+	new_evo_estFeeAmount() 
 	{
 		const self = this
-		const estimatedNetworkFee_JSBigInt = new JSBigInt(self.context.monero_utils.estimated_tx_network_fee(
+		const estimatedNetworkFee_JSBigInt = new JSBigInt(self.context.coinevo_utils.estimated_tx_network_fee(
 			null, // deprecated - will be removed soon
 			self._selected_simplePriority(),
 			"24658" // TODO: grab this from wallet via API request
@@ -965,7 +965,7 @@ class SendFundsView extends View
 		//
 		return estimatedTotalFee_JSBigInt
 	}
-	new_xmr_estMaxAmount() // may return null
+	new_evo_estMaxAmount() // may return null
 	{ // may return nil if a wallet isn't present yet
 		const self = this
 		const wallet = self.walletSelectView.CurrentlySelectedRowItem
@@ -973,29 +973,29 @@ class SendFundsView extends View
 			return null // no wallet yet
 		}
 		const availableWalletBalance = wallet.Balance_JSBigInt().subtract(wallet.LockedBalance_JSBigInt()) // TODO: is it correct to incorporate locked balance into this?
-		const estNetworkFee_moneroAmount = self.new_xmr_estFeeAmount()
-		const possibleMax_moneroAmount = availableWalletBalance.subtract(estNetworkFee_moneroAmount)
-		if (possibleMax_moneroAmount > 0) { // if the Max amount is greater than 0
-			return possibleMax_moneroAmount
+		const estNetworkFee_coinevoAmount = self.new_evo_estFeeAmount()
+		const possibleMax_coinevoAmount = availableWalletBalance.subtract(estNetworkFee_coinevoAmount)
+		if (possibleMax_coinevoAmount > 0) { // if the Max amount is greater than 0
+			return possibleMax_coinevoAmount
 		}
 		return new JSBigInt("0") // can't actually send any of the balance - or maybe there are some dusty outputs that will come up in the actual sweep?99
 	}
 	new_displayCcyFormatted_estMaxAmountString()
 	{  // this is going to return nil if the rate is not ready for the selected display currency - user will probably just have to keep hitting 'max'
 		const self = this
-		const xmr_estMaxAmount = self.new_xmr_estMaxAmount()
-		if (xmr_estMaxAmount == null || typeof xmr_estMaxAmount === 'undefined') {
+		const evo_estMaxAmount = self.new_evo_estMaxAmount()
+		if (evo_estMaxAmount == null || typeof evo_estMaxAmount === 'undefined') {
 			return null
 		}
-		const xmr_estMaxAmount_str = monero_amount_format_utils.formatMoney(xmr_estMaxAmount)
+		const evo_estMaxAmount_str = coinevo_amount_format_utils.formatMoney(evo_estMaxAmount)
 		//
 		const displayCcySymbol = self.ccySelectLayer.Component_selected_ccySymbol()
-		if (displayCcySymbol != Currencies.ccySymbolsByCcy.XMR) {
-			const xmr_estMaxAmountDouble = parseFloat(xmr_estMaxAmount_str)
+		if (displayCcySymbol != Currencies.ccySymbolsByCcy.EVO) {
+			const evo_estMaxAmountDouble = parseFloat(evo_estMaxAmount_str)
 			let displayCurrencyAmountDouble_orNull = Currencies.displayUnitsRounded_amountInCurrency( 
 				self.context.CcyConversionRates_Controller_shared,
 				displayCcySymbol,
-				xmr_estMaxAmountDouble
+				evo_estMaxAmountDouble
 			)
 			if (displayCurrencyAmountDouble_orNull == null) {
 				return null // rate not ready yet
@@ -1006,7 +1006,7 @@ class SendFundsView extends View
 				displayCcySymbol
 			)
 		}
-		return xmr_estMaxAmount_str // then it's an xmr amount
+		return evo_estMaxAmount_str // then it's an evo amount
 	}
 	new_displayCcyFormatted_estMaxAmount_fullInputText()
 	{
@@ -1021,21 +1021,21 @@ class SendFundsView extends View
 	_new_estimatedNetworkFee_displayString()
 	{
 		const self = this
-		const estimatedTotalFee_JSBigInt = self.new_xmr_estFeeAmount()
-		const estimatedTotalFee_str = monero_amount_format_utils.formatMoney(estimatedTotalFee_JSBigInt)
-		const estimatedTotalFee_moneroAmountDouble = parseFloat(estimatedTotalFee_str)
+		const estimatedTotalFee_JSBigInt = self.new_evo_estFeeAmount()
+		const estimatedTotalFee_str = coinevo_amount_format_utils.formatMoney(estimatedTotalFee_JSBigInt)
+		const estimatedTotalFee_coinevoAmountDouble = parseFloat(estimatedTotalFee_str)
 		
-		// const estimatedTotalFee_moneroAmountDouble = 0.028
+		// const estimatedTotalFee_coinevoAmountDouble = 0.028
 		// Just hard-coding this to a reasonable estimate for now as the fee estimator algo uses the median blocksize which results in an estimate about twice what it should be
 		let displayCcySymbol = self.context.settingsController.displayCcySymbol
 		let finalizable_ccySymbol = displayCcySymbol
-		var finalizable_formattedAmountString = estimatedTotalFee_str;//`${estimatedTotalFee_moneroAmountDouble}`
+		var finalizable_formattedAmountString = estimatedTotalFee_str;//`${estimatedTotalFee_coinevoAmountDouble}`
 		{
-			if (displayCcySymbol != Currencies.ccySymbolsByCcy.XMR) {
+			if (displayCcySymbol != Currencies.ccySymbolsByCcy.EVO) {
 				let displayCurrencyAmountDouble_orNull = Currencies.displayUnitsRounded_amountInCurrency( 
 					self.context.CcyConversionRates_Controller_shared,
 					displayCcySymbol,
-					estimatedTotalFee_moneroAmountDouble
+					estimatedTotalFee_coinevoAmountDouble
 				)
 				if (displayCurrencyAmountDouble_orNull != null) {
 					let displayCurrencyAmountDouble = displayCurrencyAmountDouble_orNull
@@ -1044,7 +1044,7 @@ class SendFundsView extends View
 						finalizable_ccySymbol
 					)
 				} else {
-					finalizable_ccySymbol = Currencies.ccySymbolsByCcy.XMR // and - special case - revert currency to .xmr while waiting on ccyConversion rate
+					finalizable_ccySymbol = Currencies.ccySymbolsByCcy.EVO // and - special case - revert currency to .evo while waiting on ccyConversion rate
 				}
 			}
 		}
@@ -1080,14 +1080,14 @@ class SendFundsView extends View
 				let selected_ccySymbol = self.ccySelectLayer.Component_selected_ccySymbol()
 				let rawInput_amount_Number = +raw_amount_String // turns string into JS Number
 				if (!isNaN(rawInput_amount_Number)) {
-					let submittableMoneroAmountDouble_orNull = Currencies.submittableMoneroAmountDouble_orNull(
+					let submittableCoinevoAmountDouble_orNull = Currencies.submittableCoinevoAmountDouble_orNull(
 						self.context.CcyConversionRates_Controller_shared,
 						selected_ccySymbol,
 						rawInput_amount_Number
 					)
-					if (submittableMoneroAmountDouble_orNull == null) { // amt input exists but no converted amt found
-						if (selected_ccySymbol == Currencies.ccySymbolsByCcy.XMR) {
-							throw "null submittableMoneroAmountDouble_orNull while selected_ccySymbol=.XMR"
+					if (submittableCoinevoAmountDouble_orNull == null) { // amt input exists but no converted amt found
+						if (selected_ccySymbol == Currencies.ccySymbolsByCcy.EVO) {
+							throw "null submittableCoinevoAmountDouble_orNull while selected_ccySymbol=.EVO"
 						}
 						isSubmittable = false // because we must be still loading the rate - so we want to explicitly /disable/ submission
 					}
@@ -1118,7 +1118,7 @@ class SendFundsView extends View
 		const self = this
 		let isMaxToggledOn = self.max_buttonView.isMAXToggledOn
 		let toToggledOnText_orNullIfNotToggled = isMaxToggledOn
-			? self.new_displayCcyFormatted_estMaxAmount_fullInputText() // if non xmr ccy but rate nil (amount nil), will display "MAX" til it's ready
+			? self.new_displayCcyFormatted_estMaxAmount_fullInputText() // if non evo ccy but rate nil (amount nil), will display "MAX" til it's ready
 			: null
 		self.amountInputLayer.Component_configureWithMAXToggled(
 			isMaxToggledOn,
@@ -1169,35 +1169,35 @@ class SendFundsView extends View
 		if (displayCcySymbol == null) {
 			throw "unexpectedly null displayCcySymbol"
 		}
-		let XMR = Currencies.ccySymbolsByCcy.XMR
-		if (selected_ccySymbol == XMR && displayCcySymbol == XMR) { // special case - no label necessary
+		let EVO = Currencies.ccySymbolsByCcy.EVO
+		if (selected_ccySymbol == EVO && displayCcySymbol == EVO) { // special case - no label necessary
 			__hideEffectiveAmountUI()
 			return
 		}
 		//
-		let xmrAmountDouble_orNull = Currencies.submittableMoneroAmountDouble_orNull(
+		let evoAmountDouble_orNull = Currencies.submittableCoinevoAmountDouble_orNull(
 			self.context.CcyConversionRates_Controller_shared,
 			selected_ccySymbol,
 			rawInput_amount_Number
 		)
-		if (xmrAmountDouble_orNull == null) {
-			// but not empty … should have an amount… must be a non-XMR currency
-			if (selected_ccySymbol == XMR) {
-				throw "Unexpected selected_ccySymbol=.XMR"
+		if (evoAmountDouble_orNull == null) {
+			// but not empty … should have an amount… must be a non-EVO currency
+			if (selected_ccySymbol == EVO) {
+				throw "Unexpected selected_ccySymbol=.EVO"
 			}
 			__convenience_setLoadingTextAndHideTooltip()
 			return
 		}
-		let xmrAmountDouble = xmrAmountDouble_orNull
+		let evoAmountDouble = evoAmountDouble_orNull
 		var finalizable_text
-		if (selected_ccySymbol == XMR) {
-			if (displayCcySymbol == XMR) {
-				throw "Unexpected displayCurrency=.XMR"
+		if (selected_ccySymbol == EVO) {
+			if (displayCcySymbol == EVO) {
+				throw "Unexpected displayCurrency=.EVO"
 			}
 			let displayCurrencyAmountDouble_orNull = Currencies.displayUnitsRounded_amountInCurrency( 
 				self.context.CcyConversionRates_Controller_shared,
 				displayCcySymbol,
-				xmrAmountDouble
+				evoAmountDouble
 			)
 			if (displayCurrencyAmountDouble_orNull == null) {
 				__convenience_setLoadingTextAndHideTooltip()
@@ -1210,10 +1210,10 @@ class SendFundsView extends View
 			)
 			finalizable_text = `~ ${displayFormattedAmount} ${displayCcySymbol}`
 		} else {
-			let moneroAmountDouble_atomicPlaces = xmrAmountDouble * Math.pow(10, monero_config.coinUnitPlaces)
-			let moneroAmount = new JSBigInt(moneroAmountDouble_atomicPlaces)
-			let formatted_moneroAmount = monero_amount_format_utils.formatMoney(moneroAmount)
-			finalizable_text = `= ${formatted_moneroAmount} ${Currencies.ccySymbolsByCcy.XMR}`
+			let coinevoAmountDouble_atomicPlaces = evoAmountDouble * Math.pow(10, coinevo_config.coinUnitPlaces)
+			let coinevoAmount = new JSBigInt(coinevoAmountDouble_atomicPlaces)
+			let formatted_coinevoAmount = coinevo_amount_format_utils.formatMoney(coinevoAmount)
+			finalizable_text = `= ${formatted_coinevoAmount} ${Currencies.ccySymbolsByCcy.EVO}`
 		}
 		let final_text = finalizable_text
 		__setTextOnAmountUI(
@@ -1233,7 +1233,7 @@ class SendFundsView extends View
 		if (self.context.settingsController.hasBooted != true) {
 			throw "_givenBootedSettingsController_setCcySelectLayer_initialValue called but !self.context.settingsController.hasBooted"
 		}
-		const amountCcy = self.context.settingsController.displayCcySymbol || "XMR"
+		const amountCcy = self.context.settingsController.displayCcySymbol || "EVO"
 		self.ccySelectLayer.value = amountCcy
 	}
 	_clearForm()
@@ -1267,7 +1267,7 @@ class SendFundsView extends View
 		}
 		{
 			var sel = self.prioritySelectLayer
-			const defaultVal = monero_sendingFunds_utils.default_priority()
+			const defaultVal = coinevo_sendingFunds_utils.default_priority()
 			var opts = sel.options;
 			for (var j = 0; j < opts.length; j++) {
 				var opt = opts[j]
@@ -1428,7 +1428,7 @@ class SendFundsView extends View
 		const wallet = self.walletSelectView.CurrentlySelectedRowItem
 		{
 			if (typeof wallet === 'undefined' || !wallet) {
-				_trampolineToReturnWithValidationErrorString("Please create a wallet to send Monero.")
+				_trampolineToReturnWithValidationErrorString("Please create a wallet to send Coinevo.")
 				return
 			}
 		}
@@ -1441,27 +1441,27 @@ class SendFundsView extends View
 			}
 		}
 		let selected_ccySymbol = self.ccySelectLayer.Component_selected_ccySymbol()
-		var final_XMR_amount_Number = null;
+		var final_EVO_amount_Number = null;
 		if (!sweeping) {
 			let rawInput_amount_Number = +raw_amount_String // turns into Number, apparently
 			if (isNaN(rawInput_amount_Number)) {
 				_trampolineToReturnWithValidationErrorString("Please enter a valid amount to send.")
 				return
 			}
-			let submittableMoneroAmountDouble_orNull = Currencies.submittableMoneroAmountDouble_orNull(
+			let submittableCoinevoAmountDouble_orNull = Currencies.submittableCoinevoAmountDouble_orNull(
 				self.context.CcyConversionRates_Controller_shared,
 				selected_ccySymbol,
 				rawInput_amount_Number
 			)
-			if (submittableMoneroAmountDouble_orNull == null) {
-				throw "submittableMoneroAmountDouble unexpectedly null while sending - button should be disabled"
+			if (submittableCoinevoAmountDouble_orNull == null) {
+				throw "submittableCoinevoAmountDouble unexpectedly null while sending - button should be disabled"
 			}
-			let submittableMoneroAmountDouble = submittableMoneroAmountDouble_orNull
-			if (submittableMoneroAmountDouble <= 0) { // check this /after/ conversion to also check ->0 converted values
+			let submittableCoinevoAmountDouble = submittableCoinevoAmountDouble_orNull
+			if (submittableCoinevoAmountDouble <= 0) { // check this /after/ conversion to also check ->0 converted values
 				_trampolineToReturnWithValidationErrorString("The amount to send must be greater than zero.")
 				return
 			}
-			final_XMR_amount_Number = submittableMoneroAmountDouble
+			final_EVO_amount_Number = submittableCoinevoAmountDouble
 		}
 		//
 		const hasPickedAContact = typeof self.pickedContact !== 'undefined' && self.pickedContact ? true : false
@@ -1493,15 +1493,15 @@ class SendFundsView extends View
 
 		//
 		// now if using alternate display currency, be sure to ask for terms agreement before doing send
-		if (!sweeping && selected_ccySymbol != Currencies.ccySymbolsByCcy.XMR) {
-			let hasAgreedToUsageGateTerms = self.context.settingsController.invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount || false
+		if (!sweeping && selected_ccySymbol != Currencies.ccySymbolsByCcy.EVO) {
+			let hasAgreedToUsageGateTerms = self.context.settingsController.invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount || false
 			if (hasAgreedToUsageGateTerms == false) {
 				// show alert… iff user agrees, write user has agreed to terms and proceed to branch, else bail
 				let title = `Important`
-				let message = `Though ${selected_ccySymbol} is selected, the app will send ${Currencies.ccySymbolsByCcy.XMR}. (This is not an exchange.)`
+				let message = `Though ${selected_ccySymbol} is selected, the app will send ${Currencies.ccySymbolsByCcy.EVO}. (This is not an exchange.)`
 				message += `\n\n`
 				message += `Rate providers include ${rateServiceDomainText}. Neither accuracy or favorability are guaranteed. Use at your own risk.`
-				let ok_buttonTitle = `Agree and Send ${final_XMR_amount_Number} ${Currencies.ccySymbolsByCcy.XMR}`
+				let ok_buttonTitle = `Agree and Send ${final_EVO_amount_Number} ${Currencies.ccySymbolsByCcy.EVO}`
 				let cancel_buttonTitle = "Cancel"
 				self.context.windowDialogs.PresentQuestionAlertDialogWith(
 					title, 
@@ -1521,7 +1521,7 @@ class SendFundsView extends View
 						// must be sure to save state so alert is now not required until a DeleteEverything
 						self.context.settingsController.Set_settings_valuesByKey(
 							{
-								invisible_hasAgreedToTermsOfCalculatedEffectiveMoneroAmount: true
+								invisible_hasAgreedToTermsOfCalculatedEffectiveCoinevoAmount: true
 							},
 							function(err)
 							{
@@ -1539,7 +1539,7 @@ class SendFundsView extends View
 			} else {
 				// show alert… iff user agrees, write user has agreed to terms and proceed to branch, else bail
 				let title = `Confirm Amount`
-				let message = `Send ${final_XMR_amount_Number} ${Currencies.ccySymbolsByCcy.XMR}?`
+				let message = `Send ${final_EVO_amount_Number} ${Currencies.ccySymbolsByCcy.EVO}?`
 				let ok_buttonTitle = `Send`
 				let cancel_buttonTitle = "Cancel"
 				self.context.windowDialogs.PresentQuestionAlertDialogWith(
@@ -1580,11 +1580,11 @@ class SendFundsView extends View
 				resolvedPaymentID_fieldIsVisible,
 				//
 				hasPickedAContact ? self.pickedContact.payment_id : undefined,
-				hasPickedAContact ? self.pickedContact.cached_OAResolved_XMR_address : undefined,
+				hasPickedAContact ? self.pickedContact.cached_OAResolved_EVO_address : undefined,
 				hasPickedAContact ? self.pickedContact.HasOpenAliasAddress() : undefined,
 				hasPickedAContact ? self.pickedContact.address : undefined,
 				//
-				"" + final_XMR_amount_Number,
+				"" + final_EVO_amount_Number,
 				sweeping, // when true, amount will be ignored
 				self._selected_simplePriority(),
 				//
@@ -1774,7 +1774,7 @@ class SendFundsView extends View
 			function(
 				err,
 				addressWhichWasPassedIn,
-				moneroReady_address,
+				coinevoReady_address,
 				payment_id, // may be undefined
 				tx_description,
 				openAlias_domain,
@@ -1805,8 +1805,8 @@ class SendFundsView extends View
 				self.isResolvingSendTarget = false // only enable if no err
 				self.set_isSubmittable_needsUpdate()
 				{
-					if (typeof moneroReady_address !== 'undefined' && moneroReady_address) { // not that it would be
-						self._displayResolvedAddress(moneroReady_address)
+					if (typeof coinevoReady_address !== 'undefined' && coinevoReady_address) { // not that it would be
+						self._displayResolvedAddress(coinevoReady_address)
 					} else {
 						// we already hid it above - not that this will ever be entered
 					}
@@ -1854,13 +1854,13 @@ class SendFundsView extends View
 		self.isResolvingSendTarget = true
 		self.set_isSubmittable_needsUpdate()
 		//
-		const isOAAddress = monero_openalias_utils.DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress(enteredPossibleAddress)
+		const isOAAddress = coinevo_openalias_utils.DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress(enteredPossibleAddress)
 		if (isOAAddress !== true) {
 			var address__decode_result; 
 			try {
-				address__decode_result = self.context.monero_utils.decode_address(enteredPossibleAddress, self.context.nettype)
+				address__decode_result = self.context.coinevo_utils.decode_address(enteredPossibleAddress, self.context.nettype)
 			} catch (e) {
-				console.warn("Couldn't decode as a Monero address.", e)
+				console.warn("Couldn't decode as a Coinevo address.", e)
 				self.isResolvingSendTarget = false
 				self.set_isSubmittable_needsUpdate()
 				return // just return silently
@@ -1902,7 +1902,7 @@ class SendFundsView extends View
 			function(
 				err,
 				addressWhichWasPassedIn,
-				moneroReady_address,
+				coinevoReady_address,
 				payment_id, // may be undefined
 				tx_description,
 				openAlias_domain,
@@ -1930,8 +1930,8 @@ class SendFundsView extends View
 					return
 				}
 				//
-				if (typeof moneroReady_address !== 'undefined' && moneroReady_address) {
-					self._displayResolvedAddress(moneroReady_address)
+				if (typeof coinevoReady_address !== 'undefined' && coinevoReady_address) {
+					self._displayResolvedAddress(coinevoReady_address)
 				} else {
 					// we already hid it above
 				}
@@ -1987,16 +1987,16 @@ class SendFundsView extends View
 				//
 				const code = jsQR(imageData.data, imageData.width, imageData.height)
 				if (!code || !code.location) {
-					self.validationMessageLayer.SetValidationError("MyMonero was unable to find a QR code in that image.")
+					self.validationMessageLayer.SetValidationError("MyCoinevo was unable to find a QR code in that image.")
 					return
 				}
 				const stringData = code.data
 				if (!stringData) {
-					self.validationMessageLayer.SetValidationError("MyMonero was unable to decode a QR code from that image.")
+					self.validationMessageLayer.SetValidationError("MyCoinevo was unable to decode a QR code from that image.")
 					return
 				}
 				if (typeof stringData !== 'string') {
-					self.validationMessageLayer.SetValidationError("MyMonero was able to decode QR code but got unrecognized result.")
+					self.validationMessageLayer.SetValidationError("MyCoinevo was able to decode QR code but got unrecognized result.")
 					return
 				}
 				const possibleURIString = stringData
@@ -2020,7 +2020,7 @@ class SendFundsView extends View
 		//
 		var requestPayload;
 		try {
-			requestPayload = monero_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.monero_utils)
+			requestPayload = coinevo_requestURI_utils.New_ParsedPayload_FromPossibleRequestURIString(possibleUriString, self.context.nettype, self.context.coinevo_utils)
 		} catch (errStr) {
 			if (errStr) {
 				self.validationMessageLayer.SetValidationError("Unable to use the result of decoding that QR code: " + errStr)
@@ -2047,7 +2047,7 @@ class SendFundsView extends View
 					self.ccySelectLayer.value = amountCcy
 				}
 			} else {
-				// otherwise, just keep it as it is …… because if they set it to, e.g. CAD, and there's no ccy on the request, then they might accidentally send the same numerical value in XMR despite having wanted it to be in CAD
+				// otherwise, just keep it as it is …… because if they set it to, e.g. CAD, and there's no ccy on the request, then they might accidentally send the same numerical value in EVO despite having wanted it to be in CAD
 			}
 			//
 			self.set_isSubmittable_needsUpdate()
@@ -2062,7 +2062,7 @@ class SendFundsView extends View
 				const numberOf_contacts = contacts.length
 				for (var i = 0 ; i < numberOf_contacts ; i++) {
 					const contact = contacts[i]
-					if (contact.address == target_address || contact.cached_OAResolved_XMR_address == target_address) {
+					if (contact.address == target_address || contact.cached_OAResolved_EVO_address == target_address) {
 						// so this request's address corresponds with this contact…
 						// how does the payment id match up?
 						/*
@@ -2155,7 +2155,7 @@ class SendFundsView extends View
 		}
 		// ^ so we don't get torn down while dialog open
 		self.context.filesystemUI.PresentDialogToOpenOneImageFile(
-			"Open Monero Request",
+			"Open Coinevo Request",
 			function(err, absoluteFilePath)
 			{
 				self.context.userIdleInWindowController.ReEnable_userIdle()					

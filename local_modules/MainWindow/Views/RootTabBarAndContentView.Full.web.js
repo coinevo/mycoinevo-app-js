@@ -1,5 +1,5 @@
 
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -54,7 +54,7 @@ class RootTabBarAndContentView_Full extends RootTabBarAndContentView_Base
 		{ // urlOpeningController
 			const controller = self.context.urlOpeningCoordinator
 			controller.on(
-				controller.EventName_TimeToHandleReceivedMoneroRequestURL(),
+				controller.EventName_TimeToHandleReceivedCoinevoRequestURL(),
 				function(url)
 				{
 					self.selectTab_sendFunds()

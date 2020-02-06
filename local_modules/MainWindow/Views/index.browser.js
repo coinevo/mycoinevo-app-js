@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -41,7 +41,7 @@ window.BootApp = function()
 		},
 		getName: function() 
 		{ 
-			return "MyMonero"
+			return "MyCoinevo"
 		},
 		getDeviceManufacturer: function() { 
 			throw 'app.getDeviceManufacturer(): Unsupported platform'
@@ -63,10 +63,10 @@ window.BootApp = function()
 	//
 	// context
 	var isHorizontalBar = isMobile;
-	require('../../mymonero_libapp_js/libapp_js/MyMoneroLibAppBridge')({}).then(function(coreBridge_instance) // we can just use this directly in the browser version
+	require('../../coinevo.tech_libapp_js/libapp_js/MyCoinevoLibAppBridge')({}).then(function(coreBridge_instance) // we can just use this directly in the browser version
 	{
 		const context = require('../Models/index_context.browser').NewHydratedContext({
-			nettype: require('../../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/nettype').network_type.MAINNET, // critical setting
+			nettype: require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/nettype').network_type.MAINNET, // critical setting
 			app: app,
 			isDebug: isDebug,
 			isLiteApp: true, // used sparingly for to disable (but not redact) functionality
@@ -82,16 +82,16 @@ window.BootApp = function()
 			ThemeController_isMobileBrowser: isMobile == true,
 			Tooltips_nonHoveringBehavior: isMobile == true, // be able to dismiss on clicks etc
 			Emoji_renderWithNativeEmoji: isMobile == true, // b/c this is a browser, we could be on desktop, i.e. w/o guaranteed native emoji support
-			// TODO: detect if Mac … if so, render w/o native emoji (need holistic fallback solution though - see Gitlab post referenced by https://github.com/mymonero/mymonero-app-js/issues/194)
+			// TODO: detect if Mac … if so, render w/o native emoji (need holistic fallback solution though - see Gitlab post referenced by https://github.com/coinevo.tech/coinevo.tech-app-js/issues/194)
 			//
-			appDownloadLink_domainAndPath: "mymonero.com",
+			appDownloadLink_domainAndPath: "coinevo.tech.com",
 			Settings_shouldDisplayAboutAppButton: true, // special case - since we don't have a system menu to place it in
-			HostedMoneroAPIClient_DEBUGONLY_mockSendTransactionSuccess: false,
+			HostedCoinevoAPIClient_DEBUGONLY_mockSendTransactionSuccess: false,
 			Views_selectivelyEnableMobileRenderingOptimizations: isMobile === true,
 			CommonComponents_Forms_scrollToInputOnFocus: isMobile === true,
-			monero_utils: coreBridge_instance
+			coinevo_utils: coreBridge_instance
 		})
-		window.MyMonero_context = context
+		window.MyCoinevo_context = context
 		//
 		if (isMobile == false) { // then we don't have guaranteed native emoji support
 			{ // since we're using emoji, now that we have the context, we can call PreLoadAndSetUpEmojiOne

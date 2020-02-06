@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -28,8 +28,8 @@
 //
 "use strict"
 //
-const monero_config = require('../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_config')
-const JSBigInt = require('../../mymonero_libapp_js/mymonero-core-js/cryptonote_utils/biginteger').BigInteger
+const coinevo_config = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_config')
+const JSBigInt = require('../../coinevo.tech_libapp_js/coinevo.tech-core-js/cryptonote_utils/biginteger').BigInteger
 //
 const View = require('../../Views/View.web')
 //
@@ -48,7 +48,7 @@ const ImportTransactionsModalView = require('./ImportTransactionsModalView.web')
 const FundsRequestQRDisplayView = require('../../RequestFunds/Views/FundsRequestQRDisplayView.web')
 //
 let Currencies = require('../../CcyConversionRates/Currencies')
-const monero_amount_format_utils = require("../../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_amount_format_utils");
+const coinevo_amount_format_utils = require("../../coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/coinevo_amount_format_utils");
 //
 class WalletDetailsView extends View
 {
@@ -182,11 +182,11 @@ class WalletDetailsView extends View
 			)
 			const displayCcySymbol = amount_displayStringComponents.ccy_str
 			const amt_str = amount_displayStringComponents.amt_str
-			// now check if the ccy is /still/ XMR…
-			if (displayCcySymbol == Currencies.ccySymbolsByCcy.XMR) { 
-				// NOTE: checking if ccy is XMR again to catch displayCurrencyAmountDouble_orNull=null fallthrough case from alt display ccy 
+			// now check if the ccy is /still/ EVO…
+			if (displayCcySymbol == Currencies.ccySymbolsByCcy.EVO) { 
+				// NOTE: checking if ccy is EVO again to catch displayCurrencyAmountDouble_orNull=null fallthrough case from alt display ccy 
 				const raw_balanceString = wallet.Balance_FormattedString()
-				const coinUnitPlaces = monero_config.coinUnitPlaces
+				const coinUnitPlaces = coinevo_config.coinUnitPlaces
 				const raw_balanceString__components = raw_balanceString.split(".")
 				if (raw_balanceString__components.length == 1) {
 					const balance_aspect_integer = raw_balanceString__components[0]
@@ -794,7 +794,7 @@ class WalletDetailsView extends View
 			self.balanceLabelView.SetBalanceWithWallet(wallet)
 		}
 		// hopefully these will be able to handle small enough values .. maybe switch to BigInt w/o doubles .. but fwiw they are just for display
-		let XMR = Currencies.ccySymbolsByCcy.XMR
+		let EVO = Currencies.ccySymbolsByCcy.EVO
 		const amountPending_JSBigInt = wallet.AmountPending_JSBigInt()
 		const hasPendingAmount = amountPending_JSBigInt.compare(0) > 0
 		const amountLocked_JSBigInt = wallet.locked_balance || new JSBigInt(0)
@@ -936,7 +936,7 @@ class WalletDetailsView extends View
 						// div.style.webkitUserSelect = "all" // decided to comment this because it interferes with cell click
 						const received_JSBigInt = tx.total_received ? (typeof tx.total_received == 'string' ? new JSBigInt(tx.total_received) : tx.total_received) : new JSBigInt("0")
 						const sent_JSBigInt = tx.total_sent ? (typeof tx.total_sent == 'string' ? new JSBigInt(tx.total_sent) : tx.total_sent) : new JSBigInt("0")
-						div.innerHTML = monero_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
+						div.innerHTML = coinevo_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
 					}
 					{ // Date
 						const div = document.createElement("div")
@@ -1268,7 +1268,7 @@ class WalletDetailsView extends View
 			{
 				const received_JSBigInt = tx.total_received ? (typeof tx.total_received == 'string' ? new JSBigInt(tx.total_received) : tx.total_received) : new JSBigInt("0")
 				const sent_JSBigInt = tx.total_sent ? (typeof tx.total_sent == 'string' ? new JSBigInt(tx.total_sent) : tx.total_sent) : new JSBigInt("0")
-				const amountString = monero_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
+				const amountString = coinevo_amount_format_utils.formatMoney(received_JSBigInt.subtract(sent_JSBigInt))
 				//
 				const payment_id = `${ tx.payment_id || "" }`
 				const status = `${ tx.isFailed ? "REJECTED" : (tx.isConfirmed !== true || tx.isUnlocked !== true ? "PENDING" : "CONFIRMED") }`

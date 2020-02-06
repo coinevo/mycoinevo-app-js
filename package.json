@@ -1,23 +1,23 @@
 {
-  "name": "MyMonero",
-  "author": "MyMonero",
-  "description": "The simplest way to use Monero",
+  "name": "MyCoinevo",
+  "author": "MyCoinevo",
+  "description": "The simplest way to use Coinevo",
   "version": "1.1.13",
   "license": "SEE LICENSE IN LICENSE.txt",
-  "repository": "https://github.com/mymonero/mymonero-app-js",
+  "repository": "https://github.com/coinevo.tech/coinevo.tech-app-js",
   "private": false,
   "main": "./local_modules/electron_main/electron_main.js",
   "scripts": {
     "start": "electron ./local_modules/electron_main/electron_main.js",
     "start-dev": "NODE_ENV=development electron --no-sandbox ./local_modules/electron_main/electron_main.js",
-    "dist-m": "CSC_IDENTITY_AUTO_DISCOVERY=false CSC_NAME=\"MyMonero Pty Ltd\" electron-builder -m -p never",
+    "dist-m": "CSC_IDENTITY_AUTO_DISCOVERY=false CSC_NAME=\"MyCoinevo Pty Ltd\" electron-builder -m -p never",
     "dist-w": "electron-builder -w -p never --ia32 --x64",
     "dist-l": "electron-builder -l -p never",
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
-    "appId": "com.mymonero.mymonero-desktop",
-    "copyright": "Copyright © 2014-2019 MyMonero/",
+    "appId": "com.coinevo.tech.coinevo.tech-desktop",
+    "copyright": "Copyright © 2014-2019 MyCoinevo/",
     "asar": true,
     "forceCodeSigning": false,
     "afterPack": "./build-afterPack.js",
@@ -39,22 +39,22 @@
       "!**/tests/*",
       "!**/*.spec.js",
       "!local_modules/Pasteboard/Vendor/clipboard.min.js",
-      "!local_modules/mymonero_libapp_js/libapp_js/MyMoneroLibAppCpp_ASMJS.js",
-      "!local_modules/mymonero_libapp_js/libapp_js/MyMoneroLibAppCpp_ASMJS.asm.js",
-      "!local_modules/mymonero_libapp_js/build",
-      "!local_modules/mymonero_libapp_js/tests/**",
-      "!local_modules/mymonero_libapp_js/src/**",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/index.js",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/monero_utils/MyMoneroCoreCpp_ASMJS.js",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/monero_utils/MyMoneroCoreCpp_ASMJS.asm.js",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/monero_utils/MyMoneroCoreCpp_WASM.js",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/monero_utils/MyMoneroCoreCpp_WASM.wasm",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/monero_utils/MyMoneroCoreBridge.js",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/monero_utils/MyMoneroCoreBridgeClass.js",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/tests/**",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/wallaby*",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/src/**",
-      "!local_modules/mymonero_libapp_js/mymonero-core-js/build",
+      "!local_modules/coinevo.tech_libapp_js/libapp_js/MyCoinevoLibAppCpp_ASMJS.js",
+      "!local_modules/coinevo.tech_libapp_js/libapp_js/MyCoinevoLibAppCpp_ASMJS.asm.js",
+      "!local_modules/coinevo.tech_libapp_js/build",
+      "!local_modules/coinevo.tech_libapp_js/tests/**",
+      "!local_modules/coinevo.tech_libapp_js/src/**",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/index.js",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/MyCoinevoCoreCpp_ASMJS.js",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/MyCoinevoCoreCpp_ASMJS.asm.js",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/MyCoinevoCoreCpp_WASM.js",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/MyCoinevoCoreCpp_WASM.wasm",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/MyCoinevoCoreBridge.js",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/coinevo_utils/MyCoinevoCoreBridgeClass.js",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/tests/**",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/wallaby*",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/src/**",
+      "!local_modules/coinevo.tech_libapp_js/coinevo.tech-core-js/build",
       "!**/*.browser.*",
       "!**/favicon*.png",
       "!**/favicon*.ico",
@@ -68,8 +68,8 @@
     "publish": [
       {
         "provider": "github",
-        "owner": "mymonero",
-        "repo": "mymonero-app-js"
+        "owner": "coinevo.tech",
+        "repo": "coinevo.tech-app-js"
       }
     ],
     "mac": {
@@ -81,10 +81,10 @@
       ],
       "type": "distribution",
       "icon": "icon.icns",
-      "identity": "MyMonero Pty Ltd (NLN5D623Y3)",
+      "identity": "MyCoinevo Pty Ltd (NLN5D623Y3)",
       "extendInfo": {
         "com.apple.developer.team-identifier": "NLN5D623Y3",
-        "com.apple.application-identifier": "NLN5D623Y3.com.mymonero.mymonero-desktop"
+        "com.apple.application-identifier": "NLN5D623Y3.com.coinevo.tech.coinevo.tech-desktop"
       }
     },
     "win": {
@@ -92,7 +92,7 @@
         "nsis"
       ],
       "artifactName": "${productName}-${version}.${ext}",
-      "legalTrademarks": "Copyright © 2014-2019 MyMonero.",
+      "legalTrademarks": "Copyright © 2014-2019 MyCoinevo.",
       "publisherName": null,
       "verifyUpdateCodeSignature": false
     },
@@ -111,9 +111,9 @@
     },
     "protocols": [
       {
-        "name": "Monero Funds Request URL",
+        "name": "Coinevo Funds Request URL",
         "schemes": [
-          "monero"
+          "coinevo"
         ]
       }
     ]

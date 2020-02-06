@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -30,8 +30,8 @@
 //
 const EventEmitter = require('events')
 //
-const PROTOCOL_PREFIX = "monero" // this is also specified for MacOS in packager.js under scheme
-// maybe support "mymonero" too
+const PROTOCOL_PREFIX = "coinevo" // this is also specified for MacOS in packager.js under scheme
+// maybe support "coinevo.tech" too
 //
 class URLOpeningCoordinator extends EventEmitter
 {
@@ -67,7 +67,7 @@ class URLOpeningCoordinator extends EventEmitter
 					if (hasUserSavedAPassword == false) {
 						// app is blank - no wallets have been created, password hasn't been entered…… ignore so as not to cause a superfluous password entry request
 						return false
-						// NOTE: returning before self.requestURLToOpen_pendingFromDisallowedFromOpening set - at least for now, b/c otherwise _yieldThatTimeToHandleReceivedMoneroURL would never be called unless code further enhanced to avoid call to OnceBootedAndPasswordObtained when hasAPasswordBeenSaved=false
+						// NOTE: returning before self.requestURLToOpen_pendingFromDisallowedFromOpening set - at least for now, b/c otherwise _yieldThatTimeToHandleReceivedCoinevoURL would never be called unless code further enhanced to avoid call to OnceBootedAndPasswordObtained when hasAPasswordBeenSaved=false
 					}
 					let hadExistingPendingURL = self.requestURLToOpen_pendingFromDisallowedFromOpening != null && typeof self.requestURLToOpen_pendingFromDisallowedFromOpening !== 'undefined' ? true : false
 					self.requestURLToOpen_pendingFromDisallowedFromOpening = url // we will clear this either on the app going back into the background (considered a cancellation or failed attempt to unlock), the requestURL is processed after unlock, or
@@ -80,7 +80,7 @@ class URLOpeningCoordinator extends EventEmitter
 									function()
 									{
 										if (self.requestURLToOpen_pendingFromDisallowedFromOpening != null && typeof self.requestURLToOpen_pendingFromDisallowedFromOpening !== 'undefined') { // if still have one - aka not cancelled
-											self._yieldThatTimeToHandleReceivedMoneroURL(self.requestURLToOpen_pendingFromDisallowedFromOpening)
+											self._yieldThatTimeToHandleReceivedCoinevoURL(self.requestURLToOpen_pendingFromDisallowedFromOpening)
 										} else {
 											console.warn("URLOpening: Called back from a pw entry notification but no longer had a self.requestURLToOpen_pendingFromDisallowedFromOpening")
 										}
@@ -94,16 +94,16 @@ class URLOpeningCoordinator extends EventEmitter
 						)
 					}
 				} else {
-					self._yieldThatTimeToHandleReceivedMoneroURL(url)
+					self._yieldThatTimeToHandleReceivedCoinevoURL(url)
 				}
 			}
 		)
 	}
 	//
 	// Runtime - Accessors
-	EventName_TimeToHandleReceivedMoneroRequestURL()
+	EventName_TimeToHandleReceivedCoinevoRequestURL()
 	{
-		return "EventName_TimeToHandleReceivedMoneroRequestURL"
+		return "EventName_TimeToHandleReceivedCoinevoRequestURL"
 	}
 	//
 	isAllowedToReceiveURLs()
@@ -125,11 +125,11 @@ class URLOpeningCoordinator extends EventEmitter
 	}
 	//
 	// Imperatives
-	_yieldThatTimeToHandleReceivedMoneroURL(url)
+	_yieldThatTimeToHandleReceivedCoinevoURL(url)
 	{
 		const self = this;
 		self.requestURLToOpen_pendingFromDisallowedFromOpening = null // JIC it was set
-		self.emit(self.EventName_TimeToHandleReceivedMoneroRequestURL(), url)
+		self.emit(self.EventName_TimeToHandleReceivedCoinevoRequestURL(), url)
 	}
 }
 module.exports = URLOpeningCoordinator

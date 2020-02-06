@@ -1,6 +1,6 @@
-# MyMonero Desktop & Mobile Apps
+# MyCoinevo Desktop & Mobile Apps
 
-![Logo](https://raw.githubusercontent.com/mymonero/mymonero-app-js/master/docs/assets/icon_100.png "Logo")
+![Logo](https://raw.githubusercontent.com/coinevo.tech/coinevo.tech-app-js/master/docs/assets/icon_100.png "Logo")
 
 ## Packaging the Desktop App for Production Mode
 
@@ -17,7 +17,7 @@ In order to actually perform the production build for desktop, execute `bin/buil
 
 This command relies upon resources present in `build`, and will output your build products in the directory `dist`.
 
-Please note that MyMonero for Windows is packaged as an NSIS installer, rather than only an .exe (in order to support custom URL scheme registration/opening), and it incorporates a custom installer script fragment, `build/installer.sh`. 
+Please note that MyCoinevo for Windows is packaged as an NSIS installer, rather than only an .exe (in order to support custom URL scheme registration/opening), and it incorporates a custom installer script fragment, `build/installer.sh`. 
 
 
 ### Building for Windows 

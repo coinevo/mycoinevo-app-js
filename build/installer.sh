@@ -1,10 +1,10 @@
 !macro customInstall
-  DetailPrint "Register monero URI Handler"
-  DeleteRegKey HKCR "monero"
-  WriteRegStr HKCR "monero" "" "URL:monero"
-  WriteRegStr HKCR "monero" "URL Protocol" ""
-  WriteRegStr HKCR "monero\DefaultIcon" "" "$INSTDIR\${APP_EXECUTABLE_FILENAME}"
-  WriteRegStr HKCR "monero\shell" "" ""
-  WriteRegStr HKCR "monero\shell\Open" "" ""
-  WriteRegStr HKCR "monero\shell\Open\command" "" "$INSTDIR\${APP_EXECUTABLE_FILENAME} %1"
+  DetailPrint "Register coinevo URI Handler"
+  DeleteRegKey HKCR "coinevo"
+  WriteRegStr HKCR "coinevo" "" "URL:coinevo"
+  WriteRegStr HKCR "coinevo" "URL Protocol" ""
+  WriteRegStr HKCR "coinevo\DefaultIcon" "" "$INSTDIR\${APP_EXECUTABLE_FILENAME}"
+  WriteRegStr HKCR "coinevo\shell" "" ""
+  WriteRegStr HKCR "coinevo\shell\Open" "" ""
+  WriteRegStr HKCR "coinevo\shell\Open\command" "" "$INSTDIR\${APP_EXECUTABLE_FILENAME} %1"
 !macroend

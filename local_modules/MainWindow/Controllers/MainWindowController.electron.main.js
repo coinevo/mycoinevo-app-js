@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -94,7 +94,7 @@ class MainWindowController
 			height: 552,
 			minWidth: 412, // For action buttons
 			minHeight: 420,
-			title: "MyMonero", // Windows
+			title: "MyCoinevo", // Windows
 			//
 			show: false, // shown on ready
 			//
@@ -174,7 +174,7 @@ class MainWindowController
 		})
 		window.on('page-title-updated', function(e, title) { 
 			// prevent system from changing the name of the window - may be relevant on platforms like Linux
-			if (title !== "MyMonero") { 
+			if (title !== "MyCoinevo") { 
 				e.preventDefault() 
 			} 
 		}) 

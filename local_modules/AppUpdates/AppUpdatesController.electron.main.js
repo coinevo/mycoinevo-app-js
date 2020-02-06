@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -91,13 +91,13 @@ class Controller extends EventEmitter
 				: "An unknown error occurred while checking for updates.";
 			if (self.lastCheckWasManuallyInitiated) { 
 				// only show dialog for error if auto-updates are off OR self.lastCheckWasManuallyInitiated == true
-				dialog.showErrorBox("MyMonero Software Update Error", err_msg);
+				dialog.showErrorBox("MyCoinevo Software Update Error", err_msg);
 			} else {
 				if (nonManualErrorNote_shownNTimes < 2) {
 					// ^--- I considered a number of other solutions the problem of notification pile-up when network not reachable such as observing when notifications were closed and so not showing them if the previous specific one hadn't been closed, but the close event is not guaranteed.
 					// Showing the error here is more of a convenience, since it's in cases that aren't manually initiated. So I'll just limit it to a reasonable 2 such error notifications per app session until a better solution is derived.
 					const note = new Notification({
-						title: "Error fetching MyMonero updates",
+						title: "Error fetching MyCoinevo updates",
 						body: err_msg,
 					})
 					note.show()
@@ -113,7 +113,7 @@ class Controller extends EventEmitter
 				if (self.lastCheckWasManuallyInitiated) { 
 					const note = new Notification({
 						title: "Downloading Update",
-						body: "MyMonero is downloading an update that it found.",
+						body: "MyCoinevo is downloading an update that it found.",
 					})
 					note.show()
 				} else {
@@ -126,7 +126,7 @@ class Controller extends EventEmitter
 					icon: pathTo_iconImage_png,
 					cancelId: 1,
 					defaultId: 0,
-					message: 'MyMonero found a software update. Do you want to download it now?',
+					message: 'MyCoinevo found a software update. Do you want to download it now?',
 					buttons: ['Download', 'Cancel']
 				})
 				if (buttonIndex === 0) {
@@ -163,7 +163,7 @@ class Controller extends EventEmitter
 				}
 				const note = new Notification({
 					title: "A new update is ready to install",
-					body: `New MyMonero version is downloaded and will be automatically installed on exit`,
+					body: `New MyCoinevo version is downloaded and will be automatically installed on exit`,
 				})
 				note.show()
 			} else {
@@ -181,7 +181,7 @@ class Controller extends EventEmitter
 				const response = dialog.showMessageBoxSync({
 					type: 'info',
 					title: 'Updates Ready to Install',
-					message: 'The new MyMonero version has been downloaded. The app must quit to install the update.',
+					message: 'The new MyCoinevo version has been downloaded. The app must quit to install the update.',
 					icon: pathTo_iconImage_png,
 					defaultId: installButtonIndex,
 					cancelId: laterButtonIndex,
@@ -197,7 +197,7 @@ class Controller extends EventEmitter
 					{
 						const shell = require('electron').shell
 						shell.openExternal(
-							"https://github.com/mymonero/mymonero-app-js/releases"
+							"https://github.com/coinevo.tech/coinevo.tech-app-js/releases"
 						)
 					})
 				}

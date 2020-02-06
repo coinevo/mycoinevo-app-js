@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -86,15 +86,15 @@ function NewHydratedContext(initialContext)
 			}
 		},
 		{
-			module: require("../../HostedMoneroAPIClient/BackgroundResponseParser.web"),
+			module: require("../../HostedCoinevoAPIClient/BackgroundResponseParser.web"),
 			instance_key: "backgroundAPIResponseParser",
 			options: {
-				coreBridge_instance: initialContext.monero_utils // the same as coreBridge_instance
+				coreBridge_instance: initialContext.coinevo_utils // the same as coreBridge_instance
 			}
 		},
 		{
-			module: require("../../HostedMoneroAPIClient/HostedMoneroAPIClient.Lite"),
-			instance_key: "hostedMoneroAPIClient",
+			module: require("../../HostedCoinevoAPIClient/HostedCoinevoAPIClient.Lite"),
+			instance_key: "hostedCoinevoAPIClient",
 			options: {
 				appUserAgent_product: app.getName(),
 				appUserAgent_version: app.getVersion(),

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 // 
 // All rights reserved.
 // 
@@ -55,7 +55,7 @@ function ValidatedOARecordsFromTXTRecordsWithOpenAliasPrefix(
 			parsedDescription = New_ParsedDescriptionFromOpenAliasRecordWithOpenAliasPrefix(record, openAliasPrefix)
 		} catch (e) {
 			// throw "Invalid OpenAlias record:", record, e
-			continue // instaed of throwing, i.e. if records contains another (btc) address before the openAliasPrefix (xmr) address we're looking for
+			continue // instaed of throwing, i.e. if records contains another (btc) address before the openAliasPrefix (evo) address we're looking for
 		}
 		oaRecords.push(parsedDescription)
 	}

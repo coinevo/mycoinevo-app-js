@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -48,7 +48,7 @@ var context_object_instantiation_descriptions =
 	},
 	{
 
-		module_path: __dirname + "/../HostedMoneroAPIClient/BackgroundResponseParser.electron.main",
+		module_path: __dirname + "/../HostedCoinevoAPIClient/BackgroundResponseParser.electron.main",
 		instance_key: "backgroundResponseParser",
 		options: {}
 	},

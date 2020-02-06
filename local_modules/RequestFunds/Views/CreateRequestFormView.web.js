@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -138,7 +138,7 @@ class CreateRequestFormView extends View
 		div.style.display = "block"
 		div.style.padding = "0 24px 0 24px"
 		{
-			const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("RECEIVE MONERO AT", self.context)
+			const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("RECEIVE COINEVO AT", self.context)
 			div.appendChild(labelLayer)
 			//
 			const view = new WalletsSelectView({}, self.context)
@@ -243,7 +243,7 @@ class CreateRequestFormView extends View
 		div.style.paddingTop = "9px"
 		div.style.paddingBottom = "0"
 		{
-			const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("REQUEST MONERO FROM", self.context)
+			const labelLayer = commonComponents_forms.New_fieldTitle_labelLayer("REQUEST COINEVO FROM", self.context)
 			labelLayer.style.float = "left"
 			div.appendChild(labelLayer)
 			//
@@ -368,7 +368,7 @@ class CreateRequestFormView extends View
 					self.context, 
 					function()
 					{
-						self.manualPaymentIDInputLayer.value = self.context.monero_utils.new_payment_id()
+						self.manualPaymentIDInputLayer.value = self.context.coinevo_utils.new_payment_id()
 					}
 				)
 				const generateButtonView_layer = generateButtonView.layer
@@ -542,7 +542,7 @@ class CreateRequestFormView extends View
 			if (typeof raw_amount_String !== 'undefined' && raw_amount_String) {
 				amount_Number = +raw_amount_String // turns into Number, apparently
 				if (isNaN(amount_Number)) {
-					self.validationMessageLayer.SetValidationError("Please enter a valid amount of Monero.")
+					self.validationMessageLayer.SetValidationError("Please enter a valid amount of Coinevo.")
 					return
 				}
 				if (amount_Number <= 0) {
@@ -720,7 +720,7 @@ class CreateRequestFormView extends View
 			function(
 				err,
 				addressWhichWasPassedIn,
-				moneroReady_address,
+				coinevoReady_address,
 				payment_id, // may be undefined
 				tx_description,
 				openAlias_domain,

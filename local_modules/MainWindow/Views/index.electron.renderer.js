@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -38,14 +38,14 @@ const remote__app = remote__electron.app
 const remote__context = remote__electron.getGlobal("context")
 //
 const RootView = require('./RootView.Full.web') // electron uses .web files as it has a web DOM
-require('../../MoneroUtils/monero_utils.electron.web')({}).then(function(monero_utils)
+require('../../CoinevoUtils/coinevo_utils.electron.web')({}).then(function(coinevo_utils)
 {
 	const renderer_context = require('../Models/index_context.electron.renderer').NewHydratedContext(
 		remote__app,
 		remote__context.menuController, // for UI and app runtime access
 		remote__context.urlOpeningController,
 		remote__context.appUpdatesController,
-		monero_utils
+		coinevo_utils
 	)
 	{ // since we're using emoji, now that we have the context, we can call PreLoadAndSetUpEmojiOne
 		const emoji_web = require('../../Emoji/emoji_web')

@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -28,23 +28,39 @@
 //
 "use strict"
 //
-// In the future this could implement web workers
-const response_parser_utils = require('../mymonero_libapp_js/mymonero-core-js/hostAPI/response_parser_utils')
-const monero_keyImage_cache_utils = require('../mymonero_libapp_js/mymonero-core-js/monero_utils/monero_keyImage_cache_utils')
+const {ipcRenderer} = require('electron')
+const uuidV1 = require('uuid/v1')
 //
 class BackgroundResponseParser
 {
 	constructor(options, context)
 	{
-		if (typeof options.coreBridge_instance == 'undefined' || options.coreBridge_instance == null) {
-			throw "BackgroundResponseParser.web expected options.coreBridge_instance"
-		}
+		options = options || {}
 		const self = this
-		self.coreBridge_instance = options.coreBridge_instance
+		self.callbacksByUUID = {}
+		self.startObserving_ipc()
+	}
+	startObserving_ipc()
+	{
+		const self = this
+		function callbackHandler(event, arg)
+		{
+			const uuid = arg.uuid
+			const callback = self.callbacksByUUID[uuid]
+			delete self.callbacksByUUID[uuid]
+			//
+			if (arg.err && typeof arg.err != 'undefined') {
+				callback(arg.err)
+			} else {
+				callback(null, arg.returnValuesByKey)
+			}
+		}
+		ipcRenderer.on("Parsed_AddressInfo-Callback", callbackHandler)
+		ipcRenderer.on("Parsed_AddressTransactions-Callback", callbackHandler)
+		ipcRenderer.on("DeleteManagedKeyImagesForWalletWith-Callback", callbackHandler)
 	}
 	//
 	// Runtime - Accessors - Interface
-	//
 	Parsed_AddressInfo(
 		data,
 		address,
@@ -54,16 +70,19 @@ class BackgroundResponseParser
 		fn //: (err?, returnValuesByKey?) -> Void
 	) {
 		const self = this
-		response_parser_utils.Parsed_AddressInfo__keyImageManaged(
-			data,
-			address,
-			view_key__private,
-			spend_key__public,
-			spend_key__private,
-			self.coreBridge_instance,
-			function(err, returnValuesByKey)
-			{
-				fn(err, returnValuesByKey)
+		const uuid = uuidV1()
+		self.callbacksByUUID[uuid] = fn
+		//
+		ipcRenderer.send(
+			"Parsed_AddressInfo",
+			{ 
+				uuid: uuid,
+				//
+				data: data,
+				address: address,
+				view_key__private: view_key__private,
+				spend_key__public: spend_key__public,
+				spend_key__private: spend_key__private
 			}
 		)
 	}
@@ -76,28 +95,40 @@ class BackgroundResponseParser
 		fn //: (err?, returnValuesByKey?) -> Void
 	) {
 		const self = this
-		response_parser_utils.Parsed_AddressTransactions__keyImageManaged(
-			data,
-			address,
-			view_key__private,
-			spend_key__public,
-			spend_key__private,
-			self.coreBridge_instance,
-			function(err, returnValuesByKey)
-			{
-				fn(err, returnValuesByKey)
+		const uuid = uuidV1()
+		self.callbacksByUUID[uuid] = fn
+		//
+		ipcRenderer.send(
+			"Parsed_AddressTransactions",
+			{ 
+				uuid: uuid,
+				//
+				data: data,
+				address: address,
+				view_key__private: view_key__private,
+				spend_key__public: spend_key__public,
+				spend_key__private: spend_key__private
 			}
 		)
 	}
 	//
+	// Imperatives
 	DeleteManagedKeyImagesForWalletWith(
 		address,
-		fn // ((err) -> Void)? 
+		fn //: (err?, dummyval) -> Void
 	) {
-		monero_keyImage_cache_utils.DeleteManagedKeyImagesForWalletWith(address)
-		if (fn) {
-			setImmediate(fn)
-		}
+		const self = this
+		const uuid = uuidV1()
+		self.callbacksByUUID[uuid] = fn
+		//
+		ipcRenderer.send(
+			"DeleteManagedKeyImagesForWalletWith",
+			{ 
+				uuid: uuid,
+				//
+				address: address
+			}
+		)
 	}
 }
 module.exports = BackgroundResponseParser

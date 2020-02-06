@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -30,7 +30,7 @@
 //
 const EventEmitter = require('events')
 //
-const monero_openalias_utils = require('./monero_openalias_utils')
+const coinevo_openalias_utils = require('./coinevo_openalias_utils')
 //
 class OpenAliasResolver extends EventEmitter
 {
@@ -62,11 +62,11 @@ class OpenAliasResolver extends EventEmitter
 	// 
 	// Runtime - Accessors - Transforms
 	//
-	DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress(address)
+	DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress(address)
 	{
 		const self = this
 		//
-		return monero_openalias_utils.DoesStringContainPeriodChar_excludingAsXMRAddress_qualifyingAsPossibleOAAddress(address)
+		return coinevo_openalias_utils.DoesStringContainPeriodChar_excludingAsEVOAddress_qualifyingAsPossibleOAAddress(address)
 	}
 	//
 	//
@@ -75,14 +75,14 @@ class OpenAliasResolver extends EventEmitter
 	ResolveOpenAliasAddress(openAliasAddress, fn)
 	{ // -> DNSResolverHandle
 		const self = this
-		const resolverHandle = monero_openalias_utils.ResolvedMoneroAddressInfoFromOpenAliasAddress( 
+		const resolverHandle = coinevo_openalias_utils.ResolvedCoinevoAddressInfoFromOpenAliasAddress( 
 			openAliasAddress,
 			self.txtRecordResolver,
 			self.context.nettype,
-			self.context.monero_utils,
+			self.context.coinevo_utils,
 			function(
 				err,
-				moneroReady_address,
+				coinevoReady_address,
 				payment_id, // may be undefined
 				tx_description,
 				openAlias_domain,
@@ -105,7 +105,7 @@ class OpenAliasResolver extends EventEmitter
 							//
 							openAliasAddress,
 							//
-							moneroReady_address,
+							coinevoReady_address,
 							payment_id, // may be undefined
 							tx_description, // may be undefined
 							//
@@ -121,7 +121,7 @@ class OpenAliasResolver extends EventEmitter
 						null,
 						openAliasAddress, // for consumer reference
 						//
-						moneroReady_address,
+						coinevoReady_address,
 						payment_id, // may be undefined
 						tx_description, // may be undefined
 						//

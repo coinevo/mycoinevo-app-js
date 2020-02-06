@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -145,8 +145,8 @@ class ContactQRDisplayModalView extends View
 					}
 					self.context.filesystemUI.PresentDialogToSaveBase64ImageStringAsImageFile(
 						imgDataURIString,
-						"Save Monero Request",
-						"Monero request",
+						"Save Coinevo Request",
+						"Coinevo request",
 						function(err)
 						{
 							if (err) {

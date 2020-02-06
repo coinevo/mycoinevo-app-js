@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 // 
 // All rights reserved.
 // 
@@ -41,22 +41,22 @@ const doNotCopyOrEnterFilepathsMatching =
 	/^\.eslint/,
 	/\.electron\.(.*)\.?(js|html|css)$/, // e.g. electron.js, electron.renderer.js, electron.child.js
 	/^electron_/,
-	/mymonero-core-js\/build/, // obviously do not want anything within this
-	/mymonero-core-js\/node_modules/, // all of these are dev dependencies, so we don't want them
-	/mymonero_libapp_js\/build/, // obviously do not want anything within this
-	/mymonero_libapp_js\/node_modules/, // all of these are dev dependencies, so we don't want them
-	/mymonero_libapp_js\/tests/,
-	/mymonero_libapp_js\/src/,
-	/mymonero-core-js\/index\.js/,
-	/MyMoneroCoreCpp_ASMJS\.js/,
-	/MyMoneroCoreCpp_ASMJS\.asm\.js/,
-	/MyMoneroCoreCpp_WASM\.js/,
-	/MyMoneroCoreCpp_WASM\.wasm/,
-	/MyMoneroCoreBridge\.js/,
-	/MyMoneroCoreBridgeClass\.js/,
-	/mymonero-core-js\/tests/,
-	/mymonero-core-js\/wallaby/,
-	/mymonero-core-js\/src/,
+	/coinevo.tech-core-js\/build/, // obviously do not want anything within this
+	/coinevo.tech-core-js\/node_modules/, // all of these are dev dependencies, so we don't want them
+	/coinevo.tech_libapp_js\/build/, // obviously do not want anything within this
+	/coinevo.tech_libapp_js\/node_modules/, // all of these are dev dependencies, so we don't want them
+	/coinevo.tech_libapp_js\/tests/,
+	/coinevo.tech_libapp_js\/src/,
+	/coinevo.tech-core-js\/index\.js/,
+	/MyCoinevoCoreCpp_ASMJS\.js/,
+	/MyCoinevoCoreCpp_ASMJS\.asm\.js/,
+	/MyCoinevoCoreCpp_WASM\.js/,
+	/MyCoinevoCoreCpp_WASM\.wasm/,
+	/MyCoinevoCoreBridge\.js/,
+	/MyCoinevoCoreBridgeClass\.js/,
+	/coinevo.tech-core-js\/tests/,
+	/coinevo.tech-core-js\/wallaby/,
+	/coinevo.tech-core-js\/src/,
 	/node_modules\/electron/, // no reason we'd want this
 	/LICENSE\.txt/,
 	/README\.md/,

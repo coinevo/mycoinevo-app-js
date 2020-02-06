@@ -5,6 +5,6 @@
     <key>com.apple.security.app-sandbox</key>
     <true/>
 	<key>com.apple.security.application-groups</key>
-	<string>NLN5D623Y3.com.mymonero.mymonero-desktop</string>
+	<string>NLN5D623Y3.com.coinevo.tech.coinevo.tech-desktop</string>
   </dict>
 </plist>

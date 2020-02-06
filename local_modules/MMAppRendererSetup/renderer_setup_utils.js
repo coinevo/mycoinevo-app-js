@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2019, MyMonero.com
+// Copyright (c) 2014-2019, MyCoinevo.com
 //
 // All rights reserved.
 //
@@ -78,7 +78,7 @@ function HardenRuntime(options)
 	if (isBrowserBuild != true ) {// we used to disable eval for browser builds as well but now use it there when fallback to asmjs is needed
 		window.eval = global.eval = function()
 		{
-			throw new Error("MyMonero does not support window.eval() for security reasons.")
+			throw new Error("MyCoinevo does not support window.eval() for security reasons.")
 		}
 	}
 }
